@@ -1,0 +1,132 @@
+📣 *New Update!* 📣
+
+🔸 Version: 1.9.1
+🗓️ Date: 17/08/2023
+
+▸ [🛠 *Fixed*] Crash saat menggunakan beberapa command.
+▸ [🔄 *Update*] Sekarang SeeU dapat mengingat namamu baik itu di grup maupun privateChat, SeeU juga dapat membaca pesan yang di reply.
+▸ [🔄 *Update*] pada fitur /s, sekarang kamu dapat mereply pesan yang memiliki media gambar untuk mengubahnya menjadi stiker.
+▸ [🔄 *Update*] pada fitur /yta, menambahkan tags pada file mp3 yang telah didownload seperti sampul cover, title, dan artist.
+▸ [🔄 *Update*] pada fitur /absen, mengubah sisa waktu dari static menjadi dinamis saat melakukan absensi, sehingga kamu akan tahu kapan tepatnya absen ditutup.
+▸ [🆕 *Added*] Fitur /limit untuk mengecek penggunaan Private chat harian anda.
+▸ [🆕 *Added*] Fitur /bugreport untuk melaporkan bug atau masalah yang kamu temui.
+
+Yuk, langsung cobain fitur-fitur baru ini! Jangan lupa laporkan jika ada bug ya! 😉
+
+
+📣 *New Update!* 📣
+
+🔸 Version: 1.9.1
+🗓️ Date: 17/08/2023
+
+▸ [🛠 *Fixed*] Crash occurring while using certain commands.
+▸ [🔄 Update] Now SeeU can remember your name both in groups and private chats. SeeU can also read Quoted Message.
+▸ [🔄 *Update*] in the /s feature, you can now reply to messages containing image media to convert them into stickers.
+▸ [🔄 *Update*] in the /yta feature, added tags to downloaded mp3 files, such as cover art, title, and artist.
+▸ [🔄 *Update*] in the /absen feature, changed the remaining time from static to dynamic during attendance, so you'll know exactly when the attendance will be closed.
+▸ [🆕 *Added*] The /limit feature to check your daily private chat usage.
+▸ [🆕 *Added*] The /bugreport feature to report bugs or issues you encounter.
+
+Go ahead and give these new features a try! Don't forget to report if you come across any bugs! 😉
+
+==============================================================================================================================
+
+📣 *New Update!* 📣
+
+🔸 Version: 1.9.2
+🗓️ Date: 22/08/2023
+
+▸ [🛠 *Fixed*] Crash saat menggunakan beberapa command.
+▸ [🛠 *Fixed*] Error: Request failed with status code 429 saat menggunakan fitur /seeu.
+▸ [🔄 *Update*] pada fitur /ai, melakukan improve agar gambar yang dihasilkan lebih baik. kamu juga dapat mengganti model dengan cara mengirim pesan /ai model.
+
+Yuk, langsung cobain fitur-fitur baru ini! Jangan lupa laporkan jika ada bug ya! 😉
+
+
+📣 *New Update!* 📣
+
+🔸 Version: 1.9.2
+🗓️ Date: 22/08/2023
+
+▸ [🛠 *Fixed*] Crash when using certain commands.
+▸ [🛠 *Fixed*] Error: Request failed with status code 429 when using the /seeu feature.
+▸ [🔄 *Update*] on the /ai feature, enhancing the image generation for better results. You can also change the model by sending the command /ai model.
+
+Go ahead and give these new features a try! Don't forget to report if you come across any bugs! 😉
+
+==============================================================================================================================
+
+📣 *New Update!* 📣
+
+🔸 Version: 1.10.1
+🗓️ Date: 09/07/2023
+
+▸ [🛠 *Fixed*] Crash saat menggunakan beberapa command.
+▸ [🆕 *Added*] Fitur /musicInfo, fitur untuk mencari informasi lagu berdasarkan pencarian.
+
+Yuk, langsung cobain fitur-fitur baru ini! Jangan lupa laporkan jika ada bug ya! 😉
+
+
+📣 *New Update!* 📣
+
+🔸 Version: 1.10.1
+🗓️ Date: 09/07/2023
+
+▸ [🛠 *Fixed*] Crash when using certain commands.
+▸ [🆕 *Added*] Feature /musicInfo, a feature for searching song information based on search.
+
+Go ahead and give these new features a try! Don't forget to report if you come across any bugs! 😉
+
+==============================================================================================================================
+
+📣 *New Update!* 📣
+
+🔸 Version: 2.1.1
+🗓️ Date: 18/09/2023
+
+▸ [🛠 *Fixed*] Crash saat menggunakan beberapa command.
+▸ [🆕 *Added*] Fitur /musicInfo, fitur untuk mencari informasi lagu berdasarkan pencarian.
+▸ [🆕 *Added*] Fitur /animedl, Sekarang anda bisa mengunduh anime terbaru yang rilis tahun 2023 - sekarang.
+▸ [🔄 *Update*] Mengubah tampilan UI pada menu command, kirim /menu untuk melihat perubahan.
+▸ [🔄 *Update*] Sekarang file name yang dikirim saat menggunakan /tiktokdl sesuai dengan nama file dari konten yang diunduh.
+
+Yuk, langsung cobain fitur-fitur baru ini! Jangan lupa laporkan jika ada bug ya! 😉
+
+
+📣 *New Update!* 📣
+
+🔸 Version: 2.1.1
+🗓️ Date: 18/09/2023
+
+▸ [🛠 *Fixed*] Crash when using certain commands.
+▸ [🆕 *Added*] New /animedl. Now you can download the latest anime releases from 2023 onwards.
+▸ [🆕 *Added*] New /musicInfo, a feature for searching song information based on search.
+▸ [🔄 *Update*] Updated the UI appearance in the command menu. Send /menu to see the changes.
+▸ [🔄 *Update*] Now, when using /tiktokdl, the sent file name matches the name of the downloaded content.
+
+Go ahead and give these new features a try! Don't forget to report if you come across any bugs! 😉
+
+==============================================================================================================================
+
+📣 *New Update!* 📣
+
+🔸 Version: 2.1.2
+🗓️ Date: 06/10/2023
+
+▸ [🛠 *Fixed*] Crash saat menggunakan beberapa command.
+▸ [🆕 *Fixed*] Fitur /animedl, memperbaiki bug saat mencoba mengambil link download, apabila terjadi error kembali setelah mencoba 1-3x, silahkan gunakan */bugreport [message]* sambil mereply pesan error agar dev SeeU segera memperbaikinya.
+▸ [🔄 *Update*] Fitur /SeeU, sering mendapat code error 429? Cobalah update APIKEY kamu menjadi private maka error tersebut tidak akan muncul lagi. Ikuti link Tutorial berikut cara mengubah apikey sharing menjadi private: https://youtu.be/R3yF02N1Oq4?si=-ElYEyHwew6YjhXA.
+
+Yuk, langsung cobain fitur-fitur baru ini! Jangan lupa laporkan jika ada bug ya! 😉
+
+
+📣 *New Update!* 📣
+
+🔸 Version: 2.1.2
+🗓️ Date: 06/10/2023
+
+▸ [🛠 *Fixed*] Crash when using certain commands.
+▸ [🆕 *Fixed*] Feature /animedl: Fixed a bug when trying to retrieve the download link. If an error persists after 1-3 attempts, please use /bugreport [message] while replying to the error message so that the SeeU developer can promptly fix it.
+▸ [🔄 *Update*] Feature /SeeU: Are you frequently encountering error code 429? Try updating your API key to private, and the error should no longer appear. Follow this tutorial link on how to change your shared API key to private: https://youtu.be/R3yF02N1Oq4?si=-ElYEyHwew6YjhXA.
+
+Go ahead and give these new features a try! Don't forget to report if you come across any bugs! 😉
