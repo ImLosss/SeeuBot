@@ -3,6 +3,7 @@ const fs = require('fs');
 const axios = require('axios');
 const { MessageMedia } = require('whatsapp-web.js');
 const { ceklimit } = require('./function');
+const mime = require('mime-types');
 
 
 const igdl = async (msg, url, sender) => {
@@ -61,40 +62,23 @@ const igdl = async (msg, url, sender) => {
             return results;
         });
 
+        console.log(data);
 
         let ex = "";
         let no = 1;
         data.forEach(async (item) => {
-            console.log(item);
-            if (item.ex.includes("Gambar") || item.ex.includes("gambar") || item.ex.includes("Image") || item.ex.includes("image")) {
-                ex = `igdl${ no }.jpg`;
-            } else if (item.ex.includes("Video") || item.ex.includes("video")) {
-                ex = `igdl${ no }.mp4`;
-            } else {
-                console.log("Tipe media tidak dikenali");
-                return msg.reply('Error')
-                .catch(() => {
-                    return chat.sendMessage('Error')
-                })
-            }
-            download(item.url, ex, msg)
-            .then(result => {
-                if (!result) {
-                    msg.reply('Ukuran file terlalu besar')
-                    .catch(() => {
-                        chat.sendMessage('Ukuran file terlalu besar');
-                    })
-                } else {
-                    const media = MessageMedia.fromFilePath(result);
-                    if(result.includes('.mp4')) {
-                        chat.sendMessage(media, { sendMediaAsDocument: true });
-                    } else {
-                        chat.sendMessage(media);
-                    }
-                    fs.unlinkSync(result);
-                }
+            await download(item.url)
+            .then (result => {
+                let filename = `${ no }${ result.filename }`
+                const base64Data = Buffer.from(result.buffer, 'binary').toString('base64');
+                const media = new MessageMedia(result.mimetype, base64Data, filename, result.filesize);
+                if(result.mimetype == 'image/jpeg' || result.mimetype == 'image/png') msg.reply(media, { caption: '✅Berhasil', sendMediaAsDocument:true }).catch(() => { chat.sendMessage(media, { caption: '✅Berhasil'}); })  
+                else msg.reply(media, { caption: '✅Berhasil', sendMediaAsDocument:true }).catch(() => { chat.sendMessage(media, { caption: '✅Berhasil', sendMediaAsDocument:true }); })  
+                no += 1;  
             })
-            no+=1;
+            .catch( e => {
+                msg.reply(e).catch(() => { chat.sendMessage(e) });
+            })
         })   
         await browser.close();
     } catch (e) {
@@ -103,31 +87,6 @@ const igdl = async (msg, url, sender) => {
         await browser.close();
     }
 }
-
-// const download = async (url, ex, msg) => {
-//     return new Promise((resolve, reject) => {
-//         const path = `./database/${ ex }`;
-//         axios({
-//             method: 'GET',
-//             url: url,
-//             responseType: 'stream'
-//         })
-//         .then(response => {
-//             let fileSize = (response.headers['content-length'] / 1000000).toFixed(2);
-//             if(fileSize > 30) {
-//                 resolve(false);
-//             } else {
-//                 response.data.pipe(fs.createWriteStream(path))
-//                 .on('finish', () => {
-//                     resolve(path);
-//                 });
-//             }
-//         })
-//         .catch(error => {
-//             reject(error);
-//         });
-//     })
-// }
 
 const download = async (url) => {
     return new Promise((resolve, reject) => {
@@ -145,15 +104,16 @@ const download = async (url) => {
                 resolve(`File terlalu besar (Ukuran file anda : ${ fileSize })`);
             } else {
                 resolve({
-                    filename: `tiktokdl.${ extension }`,
+                    filename: `igdl.${ extension }`,
                     mimetype: mimetype,
                     filesize: fileSize,
                     buffer: response.data
                 })
             }
         })
-        .catch(error => {
-            reject(error);
+        .catch(err => {
+            console.log(err.message)
+            reject('Terjadi kesalahan saat mengunduh file anda...');
         });
     })
 }
