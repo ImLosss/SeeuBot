@@ -2,8 +2,8 @@
   "author": "Ryan_Syah",
   "version": "2.1.1",
   "scripts": {
-    "start": "nodemon tess.js",
-    "restart": "nodemon tess.js"
+    "start": "nodemon index.js",
+    "restart": "nodemon index.js"
   },
   "dependencies": {
     "archiver": "^6.0.0",
