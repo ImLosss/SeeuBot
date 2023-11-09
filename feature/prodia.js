@@ -71,7 +71,8 @@ async function ai(msg, sender, client){
                 }, 5000);
                 time = setTimeout(() => {
                     clearInterval(data);
-                }, 60000);
+                    msg.reply('Request Timeout, coba kembali...').catch(() => { chat.sendMessage('Request Timeout, coba kembali...') });
+                }, 90000);
             })
             .catch(function (error) {
                 console.error(error);
