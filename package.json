@@ -10,6 +10,7 @@
     "axios": "^1.4.0",
     "cheerio": "^1.0.0-rc.12",
     "child-process": "^1.0.2",
+    "circular-json": "^0.5.9",
     "cloudmersive-convert-api-client": "^2.7.4",
     "cloudmersive-image-api-client": "^1.3.5",
     "colors": "^1.4.0",

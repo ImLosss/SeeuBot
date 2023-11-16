@@ -2,6 +2,7 @@ const { EDEN_APIKEY } = require('../config');
 const fs = require('fs');
 const { ceklimit } = require('./function');
 const axios = require('axios');
+const circularJSON = require('circular-json');
 
 const profil = `Namamu adalah Eden. kamu adalah Asisten virtual yang bisa diandalkan, Jawablah pertanyaan user dengan tepat, gunakanlah bahasa sesuai pertanyaan user, akan ada dataset yang terdapat pada pertanyaan user seperti nama atau informasi waktu saat ini gunakan data tersebut untuk menjawab pertanyaan user tanpa mengembalikannya lagi, gambarkan perasaan kamu dengan emoji whatsapp, seperti : 😄, 😅, 😡, dll`
 
@@ -60,7 +61,7 @@ const edenHandler = async (text, msg, sender) => {
         }
     }
 
-    dataset = JSON.stringify(dataset)
+    dataset = circularJSON.stringify(dataset)
 
     if(!chat.isGroup) {
         const limit = await ceklimit(sender);
@@ -134,9 +135,10 @@ const edenAI = async (prompt, from, sender, dataset, apikey) => {
                 }, {headers, timeout: 120000 });
 
                 chatHistory.push({role: "user", message: `${ dataset } (dataset) : ${ prompt }`});
+                
                 if(chatHistory.length > 4) chatHistory.splice(0, 2);
                 console.log(chatHistory);
-                fs.writeFileSync(dir_history_chat, JSON.stringify(chatHistory));
+                fs.writeFileSync(dir_history_chat, circularJSON.stringify(chatHistory));
                 return response
             }  else {
                 const response = await axios.post('https://api.edenai.run/v2/text/chat/stream', {
@@ -156,7 +158,7 @@ const edenAI = async (prompt, from, sender, dataset, apikey) => {
                 if(chatHistory.length > 4) chatHistory.splice(0, 2);
 
                 console.log(chatHistory);
-                fs.writeFileSync(dir_history_chat, JSON.stringify(chatHistory));
+                fs.writeFileSync(dir_history_chat, circularJSON.stringify(chatHistory));
                 return response;
             }
         }
