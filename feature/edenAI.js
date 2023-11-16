@@ -125,7 +125,7 @@ const edenAI = async (prompt, from, sender, dataset, apikey) => {
                     "attributes_as_list": false,
                     "show_original_response": false,
                     "temperature": 0,
-                    "max_tokens": 16385,
+                    "max_tokens": 3500,
                     "fallback_type": "continue",
                     "providers": "openai",
                     "text": prompt,
@@ -134,6 +134,7 @@ const edenAI = async (prompt, from, sender, dataset, apikey) => {
                 }, {headers, timeout: 120000 });
 
                 chatHistory.push({role: "user", message: `${ dataset } (dataset) : ${ prompt }`});
+                if(chatHistory.length > 4) chatHistory.splice(0, 2);
                 fs.writeFileSync(dir_history_chat, JSON.stringify(chatHistory));
                 return response
             }  else {
@@ -142,7 +143,7 @@ const edenAI = async (prompt, from, sender, dataset, apikey) => {
                     "attributes_as_list": false,
                     "show_original_response": false,
                     "temperature": 0,
-                    "max_tokens": 16385,
+                    "max_tokens": 3500,
                     "fallback_type": "continue",
                     "providers": "openai",
                     "text": `${ dataset } (dataset) : ${ prompt}`,
@@ -150,6 +151,8 @@ const edenAI = async (prompt, from, sender, dataset, apikey) => {
                 }, {headers, timeout: 120000 });
 
                 chatHistory.push({role: "user", message: `${ dataset } (dataset) : ${ prompt }`});
+
+                if(chatHistory.length > 4) chatHistory.splice(0, 2);
                 fs.writeFileSync(dir_history_chat, JSON.stringify(chatHistory));
                 return response;
             }
