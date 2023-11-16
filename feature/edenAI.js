@@ -161,7 +161,7 @@ const edenAI = async (prompt, from, sender, dataset, apikey) => {
             }
         }
     } catch(e) {
-        console.log(e.message);
+        console.log(e);
         return 'Terjadi kesalahan';
     }
 }
