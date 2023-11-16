@@ -31,6 +31,7 @@ const { emptyTrash } = require('./feature/drive');
 const { musicinfo } = require('./feature/musicinfo');
 const { animedl } = require('./feature/animedl');
 const { mediafire } = require('./feature/mediafire');
+const { edenHandler } = require('./feature/edenAI.js');
 
 const menu2 = `╓──▷「 *Menu Command* 」
 ║ Author : Ryan_syah
@@ -426,7 +427,8 @@ client.on('message', async msg => {
         else if (prefix.some(pre => text === `${pre}sendupdate`) && sender == "6282192598451@c.us") await sendupdate(client, msg);
         else if(prefix.some(pre => text.startsWith(`${pre}updateapi`))) await updateAPI(msg, sender);
         else if(prefix.some(pre => text == `${pre}delapi`)) await delAPI(sender, msg);
-        else if (prefix.some(pre => text.startsWith(`${ pre }tess`))) await mediafire(msg, sender);
+        // else if (prefix.some(pre => text.startsWith(`${ pre }tess`))) await mediafire(msg, sender);
+        else if (prefix.some(pre => text.startsWith(`${ pre }eden`))) await edenHandler(text, msg, sender);
         else if(chat.isGroup) {
             for(let participant of chat.participants) {
                 if(participant.id._serialized === '6288809606244@c.us' && participant.isAdmin) {
