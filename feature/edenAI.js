@@ -138,7 +138,7 @@ const edenAI = async (prompt, from, sender, dataset, apikey) => {
                 
                 if(chatHistory.length > 4) chatHistory.splice(0, 2);
                 console.log(chatHistory);
-                fs.writeFileSync(dir_history_chat, circularJSON.stringify(chatHistory));
+                // fs.writeFileSync(dir_history_chat, circularJSON.stringify(chatHistory));
                 return response
             }  else {
                 const response = await axios.post('https://api.edenai.run/v2/text/chat/stream', {
@@ -158,7 +158,7 @@ const edenAI = async (prompt, from, sender, dataset, apikey) => {
                 if(chatHistory.length > 4) chatHistory.splice(0, 2);
 
                 console.log(chatHistory);
-                fs.writeFileSync(dir_history_chat, circularJSON.stringify(chatHistory));
+                // fs.writeFileSync(dir_history_chat, circularJSON.stringify(chatHistory));
                 return response;
             }
         }
