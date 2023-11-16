@@ -135,6 +135,7 @@ const edenAI = async (prompt, from, sender, dataset, apikey) => {
 
                 chatHistory.push({role: "user", message: `${ dataset } (dataset) : ${ prompt }`});
                 if(chatHistory.length > 4) chatHistory.splice(0, 2);
+                console.log(chatHistory);
                 fs.writeFileSync(dir_history_chat, JSON.stringify(chatHistory));
                 return response
             }  else {
@@ -153,6 +154,8 @@ const edenAI = async (prompt, from, sender, dataset, apikey) => {
                 chatHistory.push({role: "user", message: `${ dataset } (dataset) : ${ prompt }`});
 
                 if(chatHistory.length > 4) chatHistory.splice(0, 2);
+
+                console.log(chatHistory);
                 fs.writeFileSync(dir_history_chat, JSON.stringify(chatHistory));
                 return response;
             }
