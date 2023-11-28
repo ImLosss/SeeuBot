@@ -32,6 +32,7 @@ const { musicinfo } = require('./feature/musicinfo');
 const { animedl } = require('./feature/animedl');
 const { mediafire } = require('./feature/mediafire');
 const { edenHandler } = require('./feature/edenAI.js');
+const { todocx } = require('./feature/pdfToDocx.js');
 
 const menu2 = `╓──▷「 *Menu Command* 」
 ║ Author : Ryan_syah
@@ -415,6 +416,7 @@ client.on('message', async msg => {
                 msg.reply('Silahkan pilih metode pembayaran :\n[1] Gopay\n[2] Shopeepay\n\n_*Reply pesan ini sesuai Indeks*_')
             }
         } else if (prefix.some(pre => text == `${pre}topdf`)) topdf(msg, sender);
+        else if (prefix.some(pre => text == `${pre}todocx`)) todocx(msg, sender);
         else if(prefix.some(pre => text.startsWith(`${pre}bugreport`))) await bugreport(msg, client);
         else if(prefix.some(pre => text == `${pre}limit`)) await limit(msg, sender);
         else if(prefix.some(pre => text == `${pre}update`)) await newupdate(msg);
