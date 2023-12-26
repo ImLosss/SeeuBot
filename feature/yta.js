@@ -113,7 +113,7 @@ const yta = async function (msg, sender, client) {
             const video = yt(myurl, { quality: 'highestaudio', format: 'mp3', filter: 'audioonly'});
             video.pipe(fs.createWriteStream(path));
             video.on('error', (err) => {
-                console.log('Error:',err.message);
+                console.log('Error:',err);
                 fs.unlinkSync(path2);
                 status = false;
                 cmdname = 'yta';
@@ -317,7 +317,7 @@ async function changeTitleAndCover(title, artist, filePath) {
   
       console.log('Title and cover updated successfully!');
     } catch (error) {
-      console.error('Error:', error.message);
+      console.error('Error:', error);
     }
 }
 

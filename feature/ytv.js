@@ -82,7 +82,7 @@ const ytv = async function (msg, sender, client) {
             const video = yt(myurl, { quality: '18', format: 'mp4'});
             video.pipe(fs.createWriteStream(path));
             video.on('error', (err) => {
-                console.log('Error:',err.message);
+                console.log('Error1:',err);
                 msg.reply(`Error, coba kembali`)
                 .catch(() => {
                     chat.sendMessage(`Error, coba kembali`);

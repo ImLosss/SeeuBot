@@ -36,9 +36,9 @@ const igdl = async (msg, url, sender) => {
         await page.screenshot({ path: './database/screenshot_before.png' });
 
         // Mengetik teks ke dalam form input
-        await page.type('#s_input', url);
+        await page.type('#url', url);
 
-        await page.click('#search-form > div > div > button');
+        await page.click('#download');
 
         await page.waitForTimeout(5000);
 
@@ -46,19 +46,18 @@ const igdl = async (msg, url, sender) => {
         await page.screenshot({ path: './database/screenshot_after.png' });
 
         // Tunggu hingga elemen muncul sebelum mengambil data
-        await page.waitForSelector('#search-result > ul');
+        await page.waitForSelector('#target > div > div.row.justify-content-center');
 
         // Mengambil data dari selector
         const data = await page.evaluate(() => {
-            const ulElement = document.querySelector("#search-result > ul");
-            const items = ulElement.querySelectorAll("li");
+            const ulElement = document.querySelector("#target > div > div.row.justify-content-center");
+            const items = ulElement.querySelectorAll("div");
             const results = [];
 
             items.forEach((item) => {
                 const element = item.querySelector("a");
                 results.push({ url: element.href, ex: element.textContent});
             });
-
             return results;
         });
 
