@@ -26,7 +26,7 @@ const igdl = async (msg, url, sender) => {
         // Set a user agent
         await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.150 Safari/537.36');
 
-        await page.goto('https://saveinsta.app');
+        await page.goto('https://saveinsta.cam/');
 
         page.setDefaultTimeout(5000);
 
