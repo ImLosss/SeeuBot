@@ -36,7 +36,7 @@ const igdl = async (msg, url, sender) => {
         await page.screenshot({ path: './database/screenshot_before.png' });
 
         // Mengetik teks ke dalam form input
-        await page.type('#url', url);
+        await page.type('#s_input', url);
 
         await page.click('#search-form > div > div > button');
 
