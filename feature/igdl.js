@@ -26,7 +26,7 @@ const igdl = async (msg, url, sender) => {
         // Set a user agent
         await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.150 Safari/537.36');
 
-        await page.goto('https://saveinsta.cam/');
+        await page.goto('https://igdownloader.app/id');
 
         page.setDefaultTimeout(5000);
 
@@ -38,7 +38,7 @@ const igdl = async (msg, url, sender) => {
         // Mengetik teks ke dalam form input
         await page.type('#url', url);
 
-        await page.click('#download');
+        await page.click('#search-form > div > div > button');
 
         await page.waitForTimeout(5000);
 
@@ -46,12 +46,12 @@ const igdl = async (msg, url, sender) => {
         await page.screenshot({ path: './database/screenshot_after.png' });
 
         // Tunggu hingga elemen muncul sebelum mengambil data
-        await page.waitForSelector('#target > div > div.row.justify-content-center');
+        await page.waitForSelector('#download-result > ul');
 
         // Mengambil data dari selector
         const data = await page.evaluate(() => {
-            const ulElement = document.querySelector("#target > div > div.row.justify-content-center");
-            const items = ulElement.querySelectorAll("div");
+            const ulElement = document.querySelector("#download-result > ul");
+            const items = ulElement.querySelectorAll("li");
             const results = [];
 
             items.forEach((item) => {
