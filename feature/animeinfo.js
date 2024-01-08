@@ -26,6 +26,8 @@ const animeinfo = async (msg, sender) => {
 
     id = id[1];
 
+    if(isNaN(id)) return msg.reply('Format anda salah, kirim kembali dengan format */animeinfo [ID_Anime]*');
+
     if(id.startsWith('1000') && id != '1000') {
         id = id.replace("1000","");
     }
