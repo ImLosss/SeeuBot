@@ -40,6 +40,8 @@ const animeinfo = async (msg, sender) => {
         const anime = response.data.data
         let strTitle = anime.titles.map(titleobj => titleobj.title);
         let genres = anime.genres.map(genre => genre.name);
+        let studios = anime.studios.map(studio => studio.name);
+        studios = studios.join(', ');
         genres = genres.join(', ');
         strTitle = strTitle.join(', ');
 
@@ -57,6 +59,7 @@ const animeinfo = async (msg, sender) => {
         const info = {
             titles: strTitle,
             genre: genres,
+            studios: studios,
             episodes: anime.episodes,
             duration: anime.duration,
             status: anime.status,
@@ -71,6 +74,7 @@ const animeinfo = async (msg, sender) => {
 
         const reply = `*Titles:* ${ info.titles }
 *🎬Genres:* ${ info.genre }
+*🎥Studios:* ${ info.studios }
 *📺Episodes:* ${ info.episodes }
 *⏳Duration:* ${ info.duration }
 *🏁Status:* ${ info.status }
