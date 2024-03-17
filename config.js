@@ -1,6 +1,6 @@
 module.exports = {
     API_KEY_RM_BG: "6Aav21ynHftzAS1oLhYdstkT",
-    API_KEY_OPEN_AI: "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", // akun shopee
+    API_KEY_OPEN_AI: "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", // akun shopee
     CLIENT_ID: '102220392536-36boi4lskpjto0vfl3tb4lfia93bf0tj.apps.googleusercontent.com',
     CLIENT_SECRET: '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',
     REDIRECT_URI: 'https://developers.google.com/oauthplayground',
