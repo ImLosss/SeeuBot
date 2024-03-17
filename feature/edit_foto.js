@@ -14,7 +14,7 @@ const EditPhotoHandler = async (text, msg, sender) => {
     const chat = await msg.getChat();
     if(!chat.isGroup) {
         const limit = await ceklimit(sender);
-        if(limit) return msg.reply('Jumlah pemakaian Private anda hari ini telah mencapai batas, anda dapat menggunakan command kembali besok. Masuk ke grup SeeuBot agar dapat menggunakan command kembali:\n\nhttps://chat.whatsapp.com/IX4rq2WWN72BOEcvk46wnv');
+        if(limit) return msg.reply('Jumlah pemakaian Private anda hari ini telah mencapai batas, anda dapat menggunakan command kembali besok. Masuk ke grup SeeuBot agar dapat menggunakan command kembali:\n\nhttps://chat.whatsapp.com/Jy1xiPwFMl6I5TaVciJA3P');
     }
 
     console.log(green + '\nfrom\t:' + reset, abu + `+${ sender }`);
