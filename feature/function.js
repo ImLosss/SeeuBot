@@ -276,15 +276,17 @@ function updatecmd(msg) {
     for(const key in data) {
         if(key == "information" || key == "Note") console.log('skip');
         else {
-            
             data[key].forEach(item => {
-                if(item.name.includes(cmd[0])) {
-                    if (cmd[1] == 'on') item.status = true;
-                    else if (cmd[1] == 'of') item.status = false;
+                if(item.name.includes(cmd[1])) {
+                    if (cmd[2] == 'on') item.status = true;
+                    else if (cmd[2] == 'of') item.status = false;
                     else {
                         status = false;
                         return;
                     }
+                } else {
+                    status = false
+                    return;
                 }
             });
         }
