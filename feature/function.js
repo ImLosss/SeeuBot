@@ -272,7 +272,7 @@ function updatecmd(msg) {
     let data = fs.readFileSync(dir, 'utf-8');
     data = JSON.parse(data);
 
-    if(cmd[2] != 'of' || cmd[2] != 'on') return msg.reply('sepertinya formatmu salah, kirim kembali dengan format /updatecmd [command] [on/of]');
+    if(cmd[2] != 'of' && cmd[2] != 'on') return msg.reply('sepertinya formatmu salah, kirim kembali dengan format /updatecmd [command] [on/of]');
 
     for(const key in data) {
         if(key == "information" || key == "Note") console.log('skip');
