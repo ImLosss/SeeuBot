@@ -1,0 +1,229 @@
+{
+  "information": {
+    "owner": "Ryan_Syah",
+    "bot_name": "SeeU",
+    "client": "WhatsApp"
+  },
+  "List Command": [
+    {
+      "name": "/menu",
+      "permission": "member",
+      "desc": "mengirimkan daftar fitur atau menu fitur yang bisa digunakan",
+      "status": true,
+      "example": "/menu"
+    },
+    {
+      "name": "/bgr [color]",
+      "permission": "member",
+      "desc": "mengubah warna background pada foto harus mengirimkan pesan yang memiliki media yaitu foto dengan caption command yaitu /bgr [color]",
+      "example": "/bgr blue",
+      "status": true
+    },
+    {
+      "name": "/seeu [question]",
+      "permission": "member",
+      "desc": "Fitur untuk menanyakan apapun kepada Seeu, dan seeu akan menjawabnya",
+      "example": "/seeu apakah bumi bulat?",      
+      "status": true
+    },
+    {
+      "name": "/s",
+      "permission": "member",
+      "desc": "fitur untuk mengubah gambar menjadi stiker, pesan dikirim bersama media dengan caption /s. hanya support format gambar, dikarenakan ada masalah pada tempat hosting dalam menggunakan ffmpeg",
+      "example": "/s",      
+      "status": true
+    },
+    {
+      "name": "/ai [prompt]",
+      "permission": "member",
+      "desc": "Generate text to Image",
+      "example": "/ai kucing",
+      "status": true
+    },
+    {
+      "name": "/animesearch [title]",
+      "permission": "member",
+      "desc": "Melakukan pencarian anime dengan sumber dari MyAnimeList",
+      "example": "/animesearch oregairu",
+      "status": true
+    },
+    {
+      "name": "/pinterest [search]",
+      "permission": "member",
+      "desc": "Melakukan pencarian gambar pada website Pinterest lalu Seeu akan mengirimkan gambar 1 per satu sesuai dengan pencarian",
+      "example": "/pinterest Seeu Cosplayer",
+      "status": true
+    },
+    {
+      "name": "/topanime",
+      "permission": "member",
+      "desc": "Menampilkan topAnimeOfTheWeek dengan sumber dari Bstation",
+      "example": "/topanime",
+      "status": true
+    },
+    {
+      "name": "/topup ML",
+      "permission": "member",
+      "desc": "Fitur untuk melakukan topup pada Mobile Legend, cukup kirim pesan /topup ml untuk menggunakannya",
+      "example": "/topup ml",
+      "status": true
+    },
+    {
+      "name": "/topup Genshin",
+      "permission": "member",
+      "desc": "Fitur untuk melakukan topup pada Genshin, cukup kirim pesan /topup genshin untuk menggunakannya",
+      "example": "/topup genshin",
+      "status": true
+    },
+    {
+      "name": "/topdf",
+      "permission": "member",
+      "desc": "Fitur untuk melakukan convert doc ke pdf. pesan dikirim bersama document yang ingin diubah ke pdf dengan caption /topdf, atau bisa juga dengan mereply pesan yang memiliki document dengan caption /topdf",
+      "example": "/topdf",
+      "status": true
+    },
+    {
+      "name": "/audToText (language)",
+      "permission": "member",
+      "desc": "mengubah audio menjadi teks. pesan dikirim bersama file audio yang ingin diubah menjadi teks dengan caption /audToText, atau bisa juga dengan me reply pesan yang memiliki file audio dengan caption /audToText. argumen fitur ini bersifat opsional apabila dikosongkan maka akan mengirimkan teks sesuai dengan bahasa yang digunakan pada audio. argumen yang di isi merupakan kode ISO 639-1 semua kode bahasa bisa dilihat di link https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes",
+      "example": "/audtotext id",
+      "status": true
+    },
+    {
+      "name": "/musicinfo [title]",
+      "permission": "member",
+      "desc": "Fitur untuk menampilkan informasi sebuah lagu seperti lyric, artist, dll berdasarkan judul yang dicari",
+      "example": "/musicinfo Senorita",
+      "status": true
+    }
+  ],
+  "Content Downloader": [
+    {
+      "name": "/yta [link] (file_name)",
+      "permission": "member",
+      "desc": "Mengunduh konten Youtube dalam format Audio",
+      "example": "https://www.youtube.com/watch?v=JaoCJ2U8y_A&ab_channel=Tekotok filesaya",
+      "status": true
+    },
+    {
+      "name": "/ytv [link] (file_name)",
+      "permission": "member",
+      "desc": "Mengunduh konten Youtube dalam format Video dengan resolusi 360p atau dibawahnya",
+      "example": "/ytv https://www.youtube.com/watch?v=JaoCJ2U8y_A&ab_channel=Tekotok filesaya",
+      "status": true
+    },
+    {
+      "name": "/ythd [link] (file_name)",
+      "permission": "member",
+      "desc": "Mengunduh konten Youtube dalam resolusi tinggi",
+      "example": "/ythd https://www.youtube.com/watch?v=JaoCJ2U8y_A&ab_channel=Tekotok filesaya",
+      "status": true
+    },
+    {
+      "name": "/yts [search]",
+      "permission": "member",
+      "desc": "Melakukan pencarian Youtube yang akan memberikan informasi title, channel, durasi video, dan link. command ini bisa digunakan bersama dengan fitur lainnya untuk mendapatkan link dari youtube yang ingin diunduh",
+      "example": "/yts lemon kobasolo",
+      "status": true
+    },
+    {
+      "name": "/igdl [link]",
+      "permission": "member",
+      "desc": "Mengunduh konten Instagram",
+      "example": "/igdl https://www.instagram.com/reel/CvO8iZZrKb_/?utm_source=ig_web_copy_link&igshid=MzRlODBiNWFlZA==",
+      "status": true
+    },
+    {
+      "name": "/fbdl [link]",
+      "permission": "member",
+      "desc": "Mengunduh konten Facebook",
+      "example": "/fbdl https://www.facebook.com",
+      "status": true
+    },
+    {
+      "name": "/tiktokdl [link]",
+      "permission": "member",
+      "desc": "Mengunduh konten Tiktok",
+      "example": "/tiktokdl https://www.tiktok.com",
+      "status": true
+    },
+    {
+      "name": "/animedl",
+      "permission": "member",
+      "desc": "Fitur untuk mendownload anime terbaru yang rilis tahun 2023 - sekarang. SeeU akan meminta user untuk mengirim nama anime dan episode setelah mengirim command /animedl, Setelah itu SeeU akan mengirimkan link tautan unduhan berdasarkan anime dan episode yang dicari",
+      "example": "/animedl",
+      "status": true
+    }
+  ],
+  "Command Group": [
+    {
+      "name": "/hidetag [msg]",
+      "permission": "member",
+      "desc": "Mengirimkan pesan tag pada semua member yang ada dalam group whatsapp tetapi tidak menampilkan siapa yang di tag",
+      "example": "/hidetag hallo",
+      "status": true
+    },
+    {
+      "name": "/antitoxic [on/off/add/list/remove]",
+      "permission": "admin",
+      "desc": "Menjaga group agar tetap Family Friendly",
+      "example": "/antitoxic add kntl",
+      "status": true
+    },
+    {
+      "name": "/everyone",
+      "permission": "admin",
+      "desc": "Melakukan tag pada semua member yang ada dalam group whatsapp. fitur ini hanya berfungsi untuk melakukan tag, tidak memiliki fungsi untuk mengirim pesan",
+      "example": "/everyone",
+      "status": true
+    },
+    {
+      "name": "/absen (menit)",
+      "permission": "admin",
+      "desc": "fitur untuk melakukan absensi pada grup, Seeu akan mengirimkan format absensi ke grup dengan batas waktu sesuai dengan jumlah meniot yang diatur, apabila waktu tidak diatur maka absensi tidak memiliki batas waktu sampai admin mengirimkan /close untuk menutup absensi. kirim /hadir [nama] untuk absen, kirim /hadirc [nama] untuk mengedit nama jika sudah absen",
+      "example": "/absen 10",
+      "status": true
+    }
+  ],
+  "etc": [
+    {
+      "name": "/bugReport [Message]",
+      "permission": "member",
+      "desc": "Sebuah Command untuk melakukan report apabila terjadi bug atau crash saat user menggunakan Command pada SeeU. Laporan tersebut akan dikirim ke developer SeeU dan akan segera diatasi",
+      "example": "/bugReport Terdapat bug/crash pada fitur /topdf",
+      "status": true
+    },
+    {
+      "name": "/limit",
+      "permission": "member",
+      "desc": "Command untuk mengecek limit penggunaan PrivateChat hari ini, batas penggunaan PrivateChat command adalah 35/hari. Limit direset setiap hari",
+      "example": "/limit",
+      "status": true
+    },
+    {
+      "name": "/update",
+      "permission": "member",
+      "desc": "Command untuk mengecek update terbaru dari SeeU",
+      "example": "/update",
+      "status": true
+    },
+    {
+      "name": "/updateAPI [PasteApikeyHere]",
+      "permission": "member",
+      "desc": "Command untuk mengatur APIKEY openai anda. Command ini dapat digunakan untuk mengatur APIKEY yang sebelumnya sharing menjadi apikey private. Apabila /SeeU error dengan pesan code 429 atau saldo apikey yang digunakan telah habis maka cobalah untuk mengatur/mengganti apikey private anda maka pesan error tersebut akan hilang dan /seeu dapat memberikan pesan tanpa adanya pesan error yang muncul\n\nIkuti link berikut cara mendapatkan APIKEY Private anda:\nhttps://youtu.be/R3yF02N1Oq4?si=-ElYEyHwew6YjhXA",
+      "example": "/updateAPI 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",
+      "status": true
+    },
+    {
+      "name": "/delAPI",
+      "permission": "member",
+      "desc": "Command untuk mereset APIKEY jika telah mengatur APIKEY sebelumnya. Jika menjalankan command ini maka akan mengembalikan apikey anda yang sebelumnya private menjadi sharing",
+      "example": "/delAPI",
+      "status": true
+    }
+  ],
+  "Note": {
+    "1": "tanda [ ] pada command wajib di isi",
+    "2": "tanda ( ) pada command bisa diabaikan"
+  }
+}

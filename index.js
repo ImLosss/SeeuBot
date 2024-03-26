@@ -33,63 +33,7 @@ const { animedl } = require('./feature/animedl');
 const { mediafire } = require('./feature/mediafire');
 const { edenHandler } = require('./feature/edenAI.js');
 const { todocx } = require('./feature/pdfToDocx.js');
-
-const menu2 = `╓──▷「 *Menu Command* 」
-║ Author : Ryan_syah
-║ Bot_name : SeeU
-╟────「 *List Command* 」
-║ ▹/menu
-║ ▹/bgr [color]
-║ ▹/seeu [question]
-║ ▹/s
-║ ▹/ai [prompt]
-║ ▹/animesearch [title]
-║ ▹/pinterest [search]
-║ ▹/topanime
-║ ▹/topup ML
-║ ▹/topup Genshin
-║ ▹/toPdf
-║ ▹/audtotext (language)
-║ ▹/musicInfo [title]
-╟───「 *Content Downloader* 」
-║ ▹/yta [link] (file_name)
-║ ▹/ytv [link] (file_name)
-║ ▹/ythd [link] (file_name)
-║ ▹/yts [search]
-║ ▹/igdl [link]
-║ ▹/fbdl [link]
-║ ▹/tiktokdl [link]
-║ ▹/animedl
-╟───「 *Command Group* 」
-║ ▹/hidetag [pesan]
-║ ▹/antitoxic [on/off/add/list/remove]
-║ ▹/everyone
-║ ▹/absen (menit)
-╟───「 *etc* 」
-║ ▹/bugReport [Message]
-║ ▹/limit
-║ ▹/update
-║ ▹/updateAPI [PasteApikeyHere]
-║ ▹/delAPI
-╟─────「 *example* 」
-║ ▹/yta https://www.youtube.com
-║ ▹/s (send with image)
-║ ▹/ask haloo
-║ ▹/yts lemon kobasolo
-╟─────「 *How to use* 」
-║ Kamu bisa menanyakan cara 
-║ penggunaan tiap Command
-║ dengan mengirim pesan
-║ */seeu cara menggunakan*
-║ *fitur [command]*
-╟─────「 *Note* 」
-║ ▹ tanda [ ] pada command *wajib* di
-║   isi
-║ ▹ tanda ( ) pada command bisa
-║   diabaikan
-║ ▹ Harap gunakan perintah dengan 
-║   bijak
-╙───────────────▷`
+const fungsi = require('./feature/function.js');
 
 const wrong_format = `Maaf, pesan Anda tidak dapat dipahami. Berikut adalah menu command yang dapat Anda gunakan:
 
@@ -216,7 +160,8 @@ client.on('message', async msg => {
                 msg.reply('sepertinya formatmu salah, kirim kembali dengan format */ask [pertanyaan]*');
             }
         } else if (prefix.some(pre => text == `${pre}menu`)) {
-            msg.reply(menu2);
+            const menu = fungsi.getMenu();
+            msg.reply(menu);
         } else if (prefix.some(pre => text.startsWith(`${pre}bgr`))) await EditPhotoHandler(text, msg, sender);
         
         else if (prefix.some(pre => text.startsWith(`${pre}sapa`)) && chat.isGroup) {
@@ -427,6 +372,7 @@ client.on('message', async msg => {
         else if(prefix.some(pre => text == `${pre}animedl`)) await animedl(msg, client, sender);
         else if (prefix.some(pre => text === `${pre}backup`) && sender == "6282192598451@c.us") await backup_database('database', 'database.zip', msg);
         else if (prefix.some(pre => text === `${pre}sendupdate`) && sender == "6282192598451@c.us") await sendupdate(client, msg);
+        else if (prefix.some(pre => text.startsWith(`${pre}updatecmd`)) && sender == "6282192598451@c.us") fungsi.updatecmd(msg);
         else if(prefix.some(pre => text.startsWith(`${pre}updateapi`))) await updateAPI(msg, sender);
         else if(prefix.some(pre => text == `${pre}delapi`)) await delAPI(sender, msg);
         // else if (prefix.some(pre => text.startsWith(`${ pre }tess`))) await mediafire(msg, sender);

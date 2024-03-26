@@ -231,6 +231,71 @@ async function sendupdate(client, msg) {
     }, 5000);
 }
 
+function getMenu() {
+    let dataUser = fs.readFileSync(`./database/data`, 'utf-8');
+    dataUser = JSON.parse(dataUser);
+
+
+    let str = `╓──▷「 Menu Command 」
+║ Owner : Ryan_syah
+║ Bot_name : SeeU`
+    for(const key in dataUser) {
+    if(key == "information" || key == "Note") console.log('skip');
+    else {
+        str+= `\n╟────「 ${ key } 」`
+        dataUser[key].forEach(item => {
+        if (item.status) str+= `\n║ ▹${ item.name }`;
+        else str+= `\n║ ▹ ~${ item.name }~`;
+        });
+    }
+    }
+
+    str+= `\n╟─────「 Note 」
+║ ▹ tanda [ ] pada command wajib di
+║   isi
+║ ▹ tanda ( ) pada command bisa
+║   diabaikan
+║ ▹ Tanda ~coret~ menandakan command
+║   sedang tidak tersedia
+║ ▹ Harap gunakan perintah dengan 
+║   bijak
+╙───────────────▷`
+
+    return str;
+}
+
+function updatecmd(msg) {
+    let cmd = msg.body;
+    cmd = cmd.split(' ');
+    const dir = './database/data';
+
+    let data = fs.readFileSync(dir, 'utf-8');
+    data = JSON.parse(data);
+
+    let status = true;
+    for(const key in data) {
+        if(key == "information" || key == "Note") console.log('skip');
+        else {
+            
+            data[key].forEach(item => {
+                if(item.name.includes(cmd[0])) {
+                    if (cmd[1] == 'on') item.status = true;
+                    else if (cmd[1] == 'of') item.status = false;
+                    else {
+                        status = false;
+                        return;
+                    }
+                }
+            });
+        }
+    }
+
+    fs.writeFileSync(dir, JSON.stringify(data, null, 2));
+
+    if (status) return msg.reply('berhasil mengupdate command');
+    else return msg.reply('Terjadi kesalahan');
+}
+
 module.exports = {
-    bugreport, ceklimit, limit, newupdate, setName, setLang, resetLimit, backup_database, sendupdate, ceklist_user, updateAPI, delAPI
+    bugreport, ceklimit, limit, newupdate, setName, setLang, resetLimit, backup_database, sendupdate, ceklist_user, updateAPI, delAPI, getMenu, updatecmd
 }
