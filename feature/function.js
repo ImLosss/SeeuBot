@@ -272,7 +272,8 @@ function updatecmd(msg) {
     let data = fs.readFileSync(dir, 'utf-8');
     data = JSON.parse(data);
 
-    let status = true;
+    if(cmd[2] != 'of' || cmd[2] != 'on') return msg.reply('sepertinya formatmu salah, kirim kembali dengan format /updatecmd [command] [on/of]');
+
     for(const key in data) {
         if(key == "information" || key == "Note") console.log('skip');
         else {
@@ -280,23 +281,14 @@ function updatecmd(msg) {
                 if(item.name.includes(cmd[1])) {
                     if (cmd[2] == 'on') item.status = true;
                     else if (cmd[2] == 'of') item.status = false;
-                    else {
-                        status = false;
-                        return;
-                    }
-                } else {
-                    status = false
-                    return;
-                }
+                } 
             });
         }
     }
 
     fs.writeFileSync(dir, JSON.stringify(data, null, 2));
 
-    console.log(status);
-    if (status) return msg.reply('berhasil mengupdate command');
-    else return msg.reply('Terjadi kesalahan');
+    return msg.reply('berhasil mengupdate command');
 }
 
 module.exports = {
