@@ -30,7 +30,7 @@ const animedl = async (msg, client, sender) => {
         }
 
         // Membuat URL baru dengan parameter pencarian
-        const newUrl = `https://otakudesu.wiki/?s=${encodeURIComponent(search)}&post_type=anime`;
+        const newUrl = `https://otakudesu.cloud/?s=${encodeURIComponent(search)}&post_type=anime`;
 
         console.log(newUrl)
 
