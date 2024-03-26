@@ -294,6 +294,7 @@ function updatecmd(msg) {
 
     fs.writeFileSync(dir, JSON.stringify(data, null, 2));
 
+    console.log(status);
     if (status) return msg.reply('berhasil mengupdate command');
     else return msg.reply('Terjadi kesalahan');
 }
