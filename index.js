@@ -241,7 +241,7 @@ client.on('message', async msg => {
             url = url.split(' ');
             url = url[1];
             if(prefix.some(pre => cmd[0] === `${pre}igdl`) && cmd[1] != null) {
-                await igdl(msg, url, sender);
+                await igdl(msg, url, sender, client);
             } else {
                 msg.reply('sepertinya formatmu salah, kirim kembali dengan format */igdl [link]*');
             }

@@ -7,7 +7,7 @@ const mime = require('mime-types');
 const drive = require('./drive');
 
 
-const igdl = async (msg, url, sender) => {
+const igdl = async (msg, url, sender, client) => {
     let browser;
     try {
         let file_name = [];
