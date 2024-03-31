@@ -72,6 +72,7 @@ const igdl = async (msg, url, sender, client) => {
                 console.log(result);
                 let filename = `${ no }${ result.filename }`
                 let fileSize = parseFloat(result.filesize);
+                const delPath = result.path;
                 if (fileSize <= 30) {
                     const base64Data = Buffer.from(result.buffer, 'binary').toString('base64');
                     const media = new MessageMedia(result.mimetype, base64Data, filename, result.filesize);
@@ -80,7 +81,7 @@ const igdl = async (msg, url, sender, client) => {
                 } else {
                     drive.uploadFile(result.path, filename)
                     .then((result) => {
-                        fs.unlinkSync(result.path);
+                        fs.unlinkSync(delPath);
                         drive.generatePublicURL(result)
                         .then((result) => {
                             console.log(result);
