@@ -80,6 +80,7 @@ const igdl = async (msg, url, sender, client) => {
                 } else {
                     drive.uploadFile(result.path, filename)
                     .then((result) => {
+                        fs.unlinkSync(result.path);
                         drive.generatePublicURL(result)
                         .then((result) => {
                             console.log(result);
