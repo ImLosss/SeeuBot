@@ -79,7 +79,7 @@ const igdl = async (msg, url, sender, client) => {
                 } else {
                     drive.uploadFile(null, filename, base64Data)
                     .then((result) => {
-                        generatePublicURL(result)
+                        drive.generatePublicURL(result)
                         .then((result) => {
                             console.log(result);
                             let timer = (1000 * 60) * 60;
@@ -101,7 +101,7 @@ const igdl = async (msg, url, sender, client) => {
                             }, timer + 1000); // 20 detik (dalam milidetik)
                             chat.sendMessage(`*${ filename }*\n\nIkuti link berikut untuk mengunduh file anda:\n${ result.webViewLink }\n\n_Link hanya berlaku selama 1 jam_\n_File size: ${ fileSize }mb_`);
                             setTimeout(() => {
-                                deleteFile(result.id)
+                                drive.deleteFile(result.id)
                                 .then(() => {
                                     console.log(`info\n\n: berhasil hapus data`);
                                 })
