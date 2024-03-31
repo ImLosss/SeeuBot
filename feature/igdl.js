@@ -4,6 +4,7 @@ const axios = require('axios');
 const { MessageMedia } = require('whatsapp-web.js');
 const { ceklimit } = require('./function');
 const mime = require('mime-types');
+const drive = require('./drive');
 
 
 const igdl = async (msg, url, sender) => {
@@ -70,9 +71,43 @@ const igdl = async (msg, url, sender) => {
             .then (result => {
                 let filename = `${ no }${ result.filename }`
                 const base64Data = Buffer.from(result.buffer, 'binary').toString('base64');
-                const media = new MessageMedia(result.mimetype, base64Data, filename, result.filesize);
-                if(result.mimetype == 'image/jpeg' || result.mimetype == 'image/png') msg.reply(media, { caption: '✅Berhasil', sendMediaAsDocument:true }).catch(() => { chat.sendMessage(media, { caption: '✅Berhasil'}); })  
-                else msg.reply(media, { caption: '✅Berhasil', sendMediaAsDocument:true }).catch(() => { chat.sendMessage(media, { caption: '✅Berhasil', sendMediaAsDocument:true }); })  
+                if (result.filesize <= 30) {
+                    const media = new MessageMedia(result.mimetype, base64Data, filename, result.filesize);
+                    if(result.mimetype == 'image/jpeg' || result.mimetype == 'image/png') msg.reply(media, { caption: '✅Berhasil', sendMediaAsDocument:true }).catch(() => { chat.sendMessage(media, { caption: '✅Berhasil'}); })  
+                    else msg.reply(media, { caption: '✅Berhasil', sendMediaAsDocument:true }).catch(() => { chat.sendMessage(media, { caption: '✅Berhasil', sendMediaAsDocument:true }); })  
+                } else {
+                    drive.uploadFile(null, filename, base64Data)
+                    .then((result) => {
+                        console.log(result);
+                        let timer = (1000 * 60) * 60;
+                        const listener = async (send) => {
+                            const pesan = send.body;
+                            if(send.fromMe && pesan == `*${ filename }*\n\nIkuti link berikut untuk mengunduh file anda:\n${ result.webViewLink }\n\n_Link hanya berlaku selama 1 jam_\n_File size: ${ fileSize }mb_`) {
+                                setTimeout(async => {
+                                    send.delete(true);
+                                }, timer);
+                            }
+                        };
+                        // Menambahkan listener ke chat
+                        client.addListener('message_create', listener);
+                        // Mengatur waktu tunggu maksimum
+                        setTimeout(() => {
+                            // Timeout tercapai, menghentikan listener dan membersihkan listener
+                            client.removeListener('message_create', listener);
+                            console.log(`info\n\n: berhasil menghapus listener yang dibuat`);
+                        }, timer + 1000); // 20 detik (dalam milidetik)
+                        chat.sendMessage(`*${ filename }*\n\nIkuti link berikut untuk mengunduh file anda:\n${ result.webViewLink }\n\n_Link hanya berlaku selama 1 jam_\n_File size: ${ fileSize }mb_`);
+                        setTimeout(() => {
+                            deleteFile(result.id)
+                            .then(() => {
+                                console.log(`info\n\n: berhasil hapus data`);
+                            })
+                            .catch((err) => {
+                                console.log(err.message);
+                            })
+                        }, timer);
+                    })
+                }
                 no += 1;  
             })
             .catch( e => {
@@ -99,16 +134,12 @@ const download = async (url) => {
             const mimetype = response.headers['content-type'];
             const extension = mime.extension(mimetype);
             console.log(fileSize, mimetype);
-            if(fileSize > 30) {
-                resolve(`File terlalu besar (Ukuran file anda : ${ fileSize })`);
-            } else {
-                resolve({
-                    filename: `igdl.${ extension }`,
-                    mimetype: mimetype,
-                    filesize: fileSize,
-                    buffer: response.data
-                })
-            }
+            resolve({
+                filename: `igdl.${ extension }`,
+                mimetype: mimetype,
+                filesize: fileSize,
+                buffer: response.data
+            })
         })
         .catch(err => {
             console.log(err.message)
