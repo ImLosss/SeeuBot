@@ -16,11 +16,11 @@ const drive = google.drive({
     auth: oauth2Client
 })
 
-async function uploadFile(path, fileName, base64Data = false) {
+async function uploadFile(path, fileName, base64Data) {
     let mime_type = await cekMime(path);
     console.log(mime_type);
     let file = '';
-    if (!base64Data) file = fs.createReadStream(path)
+    if (base64Data != null) file = fs.createReadStream(path)
     else {
         file = base64Data;
     }
