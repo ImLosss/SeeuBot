@@ -72,14 +72,12 @@ const igdl = async (msg, url, sender, client) => {
                 console.log(result);
                 let filename = `${ no }${ result.filename }`
                 let fileSize = parseFloat(result.filesize);
-                const base64Data = Buffer.from(result.buffer, 'binary').toString('base64');
                 if (fileSize <= 30) {
-                    console.log('jalankuy');
+                    const base64Data = Buffer.from(result.buffer, 'binary').toString('base64');
                     const media = new MessageMedia(result.mimetype, base64Data, filename, result.filesize);
                     if(result.mimetype == 'image/jpeg' || result.mimetype == 'image/png') msg.reply(media, { caption: '✅Berhasil', sendMediaAsDocument:true }).catch(() => { chat.sendMessage(media, { caption: '✅Berhasil'}); })  
                     else msg.reply(media, { caption: '✅Berhasil', sendMediaAsDocument:true }).catch(() => { chat.sendMessage(media, { caption: '✅Berhasil', sendMediaAsDocument:true }); })  
                 } else {
-                    console.log('ini jlana')
                     drive.uploadFile(result.path, filename)
                     .then((result) => {
                         drive.generatePublicURL(result)
