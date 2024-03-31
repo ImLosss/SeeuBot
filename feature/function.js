@@ -8,24 +8,24 @@ let status_bugreport = false;
 
 const message_update = `📣 *New Update!* 📣
 
-🔸 Version: 2.1.2
-🗓️ Date: 06/10/2023
+🔸 Version: 2.1.3
+🗓️ Date: 31/03/2024
 
 ▸ [🛠 *Fixed*] Crash saat menggunakan beberapa command.
 ▸ [🆕 *Fixed*] Fitur /animedl, memperbaiki bug saat mencoba mengambil link download, apabila terjadi error kembali setelah mencoba 1-3x, silahkan gunakan */bugreport [message]* sambil mereply pesan error agar dev SeeU segera memperbaikinya.
-▸ [🔄 *Update*] Fitur /SeeU, sering mendapat code error 429? Cobalah update APIKEY kamu menjadi private maka error tersebut tidak akan muncul lagi. Ikuti link Tutorial berikut cara mengubah apikey sharing menjadi private: https://youtu.be/R3yF02N1Oq4?si=-ElYEyHwew6YjhXA.
+▸ [🔄 *Update*] Fitur /igdl, sekarang anda dapat mengunduh file diatas 30mb.
 
 Yuk, langsung cobain fitur-fitur baru ini! Jangan lupa laporkan jika ada bug ya! 😉
 
 
 📣 *New Update!* 📣
 
-🔸 Version: 2.1.2
-🗓️ Date: 06/10/2023
+🔸 Version: 2.1.3
+🗓️ Date: 31/03/2024
 
 ▸ [🛠 *Fixed*] Crash when using certain commands.
 ▸ [🆕 *Fixed*] Feature /animedl: Fixed a bug when trying to retrieve the download link. If an error persists after 1-3 attempts, please use /bugreport [message] while replying to the error message so that the SeeU developer can promptly fix it.
-▸ [🔄 *Update*] Feature /SeeU: Are you frequently encountering error code 429? Try updating your API key to private, and the error should no longer appear. Follow this tutorial link on how to change your shared API key to private: https://youtu.be/R3yF02N1Oq4?si=-ElYEyHwew6YjhXA.
+▸ [🔄 Update] Feature /igdl, now you can download files above 30mb.
 
 Go ahead and give these new features a try! Don't forget to report if you come across any bugs! 😉`
 
