@@ -148,17 +148,13 @@ const download = async (url) => {
                 })
             } else {
                 // Menyimpan file ke folder
-                fs.writeFile(path, response.data, 'binary', (err) => {
-                    if (err) {
-                        reject('Error saving file:', err);
-                    }
-                    resolve({
-                        filename: `igdl.${ extension }`,
-                        mimetype: mimetype,
-                        filesize: fileSize,
-                        path: path
-                    })
-                });
+                fs.writeFileSync(path, response.data, 'binary');
+                resolve({
+                    filename: `igdl.${ extension }`,
+                    mimetype: mimetype,
+                    filesize: fileSize,
+                    path: path
+                })
             }
         })
         .catch(err => {
