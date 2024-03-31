@@ -71,7 +71,7 @@ const igdl = async (msg, url, sender, client) => {
             .then (result => {
                 console.log(result);
                 let filename = `${ no }${ result.filename }`
-                let fileSize = result.filesize;
+                let fileSize = parseFloat(result.filesize);
                 const base64Data = Buffer.from(result.buffer, 'binary').toString('base64');
                 if (fileSize <= 30) {
                     console.log('jalankuy');
