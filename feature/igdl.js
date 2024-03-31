@@ -77,7 +77,7 @@ const igdl = async (msg, url, sender, client) => {
                     if(result.mimetype == 'image/jpeg' || result.mimetype == 'image/png') msg.reply(media, { caption: '✅Berhasil', sendMediaAsDocument:true }).catch(() => { chat.sendMessage(media, { caption: '✅Berhasil'}); })  
                     else msg.reply(media, { caption: '✅Berhasil', sendMediaAsDocument:true }).catch(() => { chat.sendMessage(media, { caption: '✅Berhasil', sendMediaAsDocument:true }); })  
                 } else {
-                    drive.uploadFile(null, filename, base64Data)
+                    drive.uploadFile(result.path, filename)
                     .then((result) => {
                         drive.generatePublicURL(result)
                         .then((result) => {
@@ -138,12 +138,23 @@ const download = async (url) => {
             const mimetype = response.headers['content-type'];
             const extension = mime.extension(mimetype);
             console.log(fileSize, mimetype);
-            resolve({
-                filename: `igdl.${ extension }`,
-                mimetype: mimetype,
-                filesize: fileSize,
-                buffer: response.data
-            })
+            if (fileSize <= 30) {
+                resolve({
+                    filename: `igdl.${ extension }`,
+                    mimetype: mimetype,
+                    filesize: fileSize,
+                    buffer: response.data
+                })
+            } else {
+                const path = `./database/igdl.${ extension }`;
+                fs.writeFileSync(filePath, response.data, 'binary');
+                resolve({
+                    filename: `igdl.${ extension }`,
+                    mimetype: mimetype,
+                    filesize: fileSize,
+                    path: path
+                })
+            }
         })
         .catch(err => {
             console.log(err.message)
