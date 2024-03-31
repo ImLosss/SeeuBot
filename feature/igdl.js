@@ -150,7 +150,7 @@ const download = async (url) => {
                 })
             } else {
                 // Menyimpan file ke folder
-                fs.writeFile(filePath, response.data, 'binary', (err) => {
+                fs.writeFile(path, response.data, 'binary', (err) => {
                     if (err) {
                         reject('Error saving file:', err);
                     }
