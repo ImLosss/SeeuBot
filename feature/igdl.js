@@ -147,7 +147,7 @@ const download = async (url) => {
                 })
             } else {
                 const path = `./database/igdl.${ extension }`;
-                fs.writeFileSync(filePath, response.data, 'binary');
+                fs.writeFileSync(path, response.data, 'binary');
                 resolve({
                     filename: `igdl.${ extension }`,
                     mimetype: mimetype,
