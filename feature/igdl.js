@@ -148,6 +148,7 @@ const download = async (url) => {
                 })
             } else {
                 // Menyimpan file ke folder
+                const path = `./database/igdl.${ extension }`;
                 fs.writeFileSync(path, response.data, 'binary');
                 resolve({
                     filename: `igdl.${ extension }`,
