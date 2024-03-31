@@ -69,6 +69,7 @@ const igdl = async (msg, url, sender, client) => {
         data.forEach(async (item) => {
             await download(item.url)
             .then (result => {
+                console.log(result);
                 let filename = `${ no }${ result.filename }`
                 let fileSize = result.filesize;
                 const base64Data = Buffer.from(result.buffer, 'binary').toString('base64');
@@ -77,6 +78,7 @@ const igdl = async (msg, url, sender, client) => {
                     if(result.mimetype == 'image/jpeg' || result.mimetype == 'image/png') msg.reply(media, { caption: '✅Berhasil', sendMediaAsDocument:true }).catch(() => { chat.sendMessage(media, { caption: '✅Berhasil'}); })  
                     else msg.reply(media, { caption: '✅Berhasil', sendMediaAsDocument:true }).catch(() => { chat.sendMessage(media, { caption: '✅Berhasil', sendMediaAsDocument:true }); })  
                 } else {
+                    console.log('ini jlana')
                     drive.uploadFile(result.path, filename)
                     .then((result) => {
                         drive.generatePublicURL(result)
