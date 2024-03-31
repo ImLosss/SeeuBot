@@ -18,7 +18,6 @@ const drive = google.drive({
 
 async function uploadFile(path, fileName, base64Data) {
     let mime_type = ''
-    console.log(mime_type);
     let file = '';
     if (base64Data == null) file = fs.createReadStream(path)
     else {
