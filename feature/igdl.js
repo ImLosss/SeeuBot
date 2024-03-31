@@ -79,34 +79,37 @@ const igdl = async (msg, url, sender, client) => {
                 } else {
                     drive.uploadFile(null, filename, base64Data)
                     .then((result) => {
-                        console.log(result);
-                        let timer = (1000 * 60) * 60;
-                        const listener = async (send) => {
-                            const pesan = send.body;
-                            if(send.fromMe && pesan == `*${ filename }*\n\nIkuti link berikut untuk mengunduh file anda:\n${ result.webViewLink }\n\n_Link hanya berlaku selama 1 jam_\n_File size: ${ fileSize }mb_`) {
-                                setTimeout(async => {
-                                    send.delete(true);
-                                }, timer);
-                            }
-                        };
-                        // Menambahkan listener ke chat
-                        client.addListener('message_create', listener);
-                        // Mengatur waktu tunggu maksimum
-                        setTimeout(() => {
-                            // Timeout tercapai, menghentikan listener dan membersihkan listener
-                            client.removeListener('message_create', listener);
-                            console.log(`info\n\n: berhasil menghapus listener yang dibuat`);
-                        }, timer + 1000); // 20 detik (dalam milidetik)
-                        chat.sendMessage(`*${ filename }*\n\nIkuti link berikut untuk mengunduh file anda:\n${ result.webViewLink }\n\n_Link hanya berlaku selama 1 jam_\n_File size: ${ fileSize }mb_`);
-                        setTimeout(() => {
-                            deleteFile(result.id)
-                            .then(() => {
-                                console.log(`info\n\n: berhasil hapus data`);
-                            })
-                            .catch((err) => {
-                                console.log(err.message);
-                            })
-                        }, timer);
+                        generatePublicURL(result)
+                        .then((result) => {
+                            console.log(result);
+                            let timer = (1000 * 60) * 60;
+                            const listener = async (send) => {
+                                const pesan = send.body;
+                                if(send.fromMe && pesan == `*${ filename }*\n\nIkuti link berikut untuk mengunduh file anda:\n${ result.webViewLink }\n\n_Link hanya berlaku selama 1 jam_\n_File size: ${ fileSize }mb_`) {
+                                    setTimeout(async => {
+                                        send.delete(true);
+                                    }, timer);
+                                }
+                            };
+                            // Menambahkan listener ke chat
+                            client.addListener('message_create', listener);
+                            // Mengatur waktu tunggu maksimum
+                            setTimeout(() => {
+                                // Timeout tercapai, menghentikan listener dan membersihkan listener
+                                client.removeListener('message_create', listener);
+                                console.log(`info\n\n: berhasil menghapus listener yang dibuat`);
+                            }, timer + 1000); // 20 detik (dalam milidetik)
+                            chat.sendMessage(`*${ filename }*\n\nIkuti link berikut untuk mengunduh file anda:\n${ result.webViewLink }\n\n_Link hanya berlaku selama 1 jam_\n_File size: ${ fileSize }mb_`);
+                            setTimeout(() => {
+                                deleteFile(result.id)
+                                .then(() => {
+                                    console.log(`info\n\n: berhasil hapus data`);
+                                })
+                                .catch((err) => {
+                                    console.log(err.message);
+                                })
+                            }, timer);
+                        })
                     })
                 }
                 no += 1;  
