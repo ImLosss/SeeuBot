@@ -70,6 +70,7 @@ const igdl = async (msg, url, sender, client) => {
             await download(item.url)
             .then (result => {
                 let filename = `${ no }${ result.filename }`
+                let fileSize = result.filesize;
                 const base64Data = Buffer.from(result.buffer, 'binary').toString('base64');
                 if (result.filesize <= 30) {
                     const media = new MessageMedia(result.mimetype, base64Data, filename, result.filesize);
