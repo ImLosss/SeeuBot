@@ -73,7 +73,7 @@ const igdl = async (msg, url, sender, client) => {
                 let filename = `${ no }${ result.filename }`
                 let fileSize = parseFloat(result.filesize);
                 const delPath = result.path;
-                if (fileSize <= 30) {
+                if (fileSize <= 30  || fileSize == NaN) {
                     const base64Data = Buffer.from(result.buffer, 'binary').toString('base64');
                     const media = new MessageMedia(result.mimetype, base64Data, filename, result.filesize);
                     if(result.mimetype == 'image/jpeg' || result.mimetype == 'image/png') msg.reply(media, { caption: '✅Berhasil', sendMediaAsDocument:true }).catch(() => { chat.sendMessage(media, { caption: '✅Berhasil'}); })  
