@@ -72,7 +72,7 @@ const igdl = async (msg, url, sender, client) => {
                 console.log(result);
                 let filename = `${ no }${ result.filename }`
                 let fileSize = result.filesize;
-                fileSize = isNaN(fileSize) ? 'None' : fileSize;
+                fileSize = isNaN(fileSize) ? 'None_' : fileSize;
                 const delPath = result.path;
                 if (fileSize <= 30) {
                     const base64Data = Buffer.from(result.buffer, 'binary').toString('base64');
