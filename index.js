@@ -451,7 +451,7 @@ client.on('group_join', async (notification) => {
     mentions = [];
 
     mentions.push(contact);
-    console.log(contact.id.user);
+    console.log(notification);
     if ((notification.type === 'add' || notification.type === 'invite') && (chat.isGroup && contact.id.user == "6288809606244")) {
         const author = await client.getContactById(notification.author);
         mentions.push(author);
