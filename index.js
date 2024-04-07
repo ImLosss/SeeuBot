@@ -449,10 +449,10 @@ client.on('group_join', async (notification) => {
     const chat = await notification.getChat();
 
     let contacts = [];
-    notification.recipientIds.forEach(async (item) => {
+    for (const item of notification.recipientIds) {
         let contact = await client.getContactById(item);
         contacts.push(contact);
-    });
+    }
     console.log(contacts);
     const contact = await client.getContactById(notification.id.participant);
     mentions = [];
