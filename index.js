@@ -451,9 +451,11 @@ client.on('group_join', async (notification) => {
     mentions = [];
 
     mentions.push(contact);
-    console.log(notification);
-    if (notification.type === 'add' || notification.type === 'invite' && chat.isGroup) {
-        const chat = await notification.getChat();
+    if (notification.type === 'add' || notification.type === 'invite' && chat.isGroup && contact == "6288809606244@c.us") {
+        const author = await client.getContactById(notification.author);
+        mentions.push(author);
+        chat.sendMessage(`🤖 *Halo! Saya adalah SeeU, Asisten Bot Grup ini!*\n\nSaya di invite oleh @${ author.id.user }! Saya di sini untuk membantu dan memiliki sejumlah fitur yang dapat digunakan. Kirim */menu* untuk melihat daftar command yang dapat digunakan. Terima kasih! 🌟`)
+    } else if (notification.type === 'add' || notification.type === 'invite' && chat.isGroup) {
         chat.sendMessage(`hello @${ contact.id.user } Selamat bergabung di grup ${ chat.name }.`, { mentions });
     }
 });
