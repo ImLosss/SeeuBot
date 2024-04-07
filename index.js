@@ -451,8 +451,8 @@ client.on('group_join', async (notification) => {
     mentions = [];
 
     mentions.push(contact);
-    console.log(contact);
-    if (notification.type === 'add' || notification.type === 'invite' && (chat.isGroup && contact.id.user == "6288809606244@c.us")) {
+    console.log(contact.id.user);
+    if ((notification.type === 'add' || notification.type === 'invite') && (chat.isGroup && contact.id.user == "6288809606244")) {
         const author = await client.getContactById(notification.author);
         mentions.push(author);
         chat.sendMessage(`🤖 *Halo! Saya adalah SeeU, Asisten Bot Grup ini!*\n\nSaya di invite oleh @${ author.id.user }! Saya di sini untuk membantu dan memiliki sejumlah fitur yang dapat digunakan. Kirim */menu* untuk melihat daftar command yang dapat digunakan. Terima kasih! 🌟`, { mentions });
