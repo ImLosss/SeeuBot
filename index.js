@@ -453,18 +453,17 @@ client.on('group_join', async (notification) => {
         let contact = await client.getContactById(item);
         contacts.push(contact);
     }
-    console.log(contacts);
-    const contact = await client.getContactById(notification.id.participant);
-    mentions = [];
 
-    mentions.push(contact);
-    console.log(notification);
     if ((notification.type === 'add' || notification.type === 'invite') && (chat.isGroup && contact.id.user == "6288809606244")) {
         const author = await client.getContactById(notification.author);
+        let mentions = [];
         mentions.push(author);
         chat.sendMessage(`🤖 *Halo! Saya adalah SeeU, Asisten Bot Grup ini!*\n\nSaya di invite oleh @${ author.id.user }! Saya di sini untuk membantu dan memiliki sejumlah fitur yang dapat digunakan. Kirim */menu* untuk melihat daftar command yang dapat digunakan. Terima kasih! 🌟`, { mentions });
     } else if (notification.type === 'add' || notification.type === 'invite' && chat.isGroup) {
-        chat.sendMessage(`hello @${ contact.id.user } Selamat bergabung di grup ${ chat.name }.`, { mentions });
+        for (const item of contacts) {
+            let mentions = [item];
+            chat.sendMessage(`hello @${ item.id.user } Selamat bergabung di grup ${ chat.name }.`, { mentions })
+        }
     }
 });
 
