@@ -451,7 +451,7 @@ client.on('group_join', async (notification) => {
     mentions = [];
 
     mentions.push(contact);
-    console.log(notification.from);
+    console.log(notification);
     if (notification.type === 'add' || notification.type === 'invite' && chat.isGroup) {
         const chat = await notification.getChat();
         chat.sendMessage(`hello @${ contact.id.user } Selamat bergabung di grup ${ chat.name }.`, { mentions });
