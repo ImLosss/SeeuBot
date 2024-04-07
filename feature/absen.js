@@ -94,7 +94,7 @@ async function absen(data, dataGrup, absen_dir, chat) {
                 fs.writeFileSync(file_grup_dir, JSON.stringify(dataGrup));
             }, 60000);
         }
-        let reply = `*Absensi ${ group.group_name } ${ group.absen_start.date } :*\n1. \n2. \n3.\n\nUntuk memulai absen kirim pesan */hadir [nama]*\nAbsen ini dapat ditutup dengan */close*\nEdit : */hadirc [nama]*\nSisa waktu : *${ time_konversi(group.timeout) }*`            
+        let reply = `*Absensi ${ group.group_name } ${ group.absen_start.date } :*\n1. \n2. \n3. \n\nUntuk memulai absen kirim pesan */hadir [nama]*\nAbsen ini dapat ditutup dengan */close*\nEdit : */hadirc [nama]*\nSisa waktu : *${ time_konversi(group.timeout) }*`            
         return reply;
     } catch (e) {
         console.log(e);
