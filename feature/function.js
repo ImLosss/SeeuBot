@@ -267,20 +267,25 @@ function getMenu() {
 function updatecmd(msg) {
     let cmd = msg.body;
     cmd = cmd.split(' ');
+    const index = cmd.length - 1;
+
+    let searchCmd = cmd.slice(1, index);
+    searchCmd = searchCmd.join(" ");
+
     const dir = './database/data';
 
     let data = fs.readFileSync(dir, 'utf-8');
     data = JSON.parse(data);
 
-    if(cmd[2] != 'of' && cmd[2] != 'on') return msg.reply('sepertinya formatmu salah, kirim kembali dengan format /updatecmd [command] [on/of]');
+    if(cmd[index] != 'of' && cmd[index] != 'on') return msg.reply('sepertinya formatmu salah, kirim kembali dengan format /updatecmd [command] [on/of]');
 
     for(const key in data) {
         if(key == "information" || key == "Note") console.log('skip');
         else {
             data[key].forEach(item => {
-                if(item.name.includes(cmd[1])) {
-                    if (cmd[2] == 'on') item.status = true;
-                    else if (cmd[2] == 'of') item.status = false;
+                if(item.name.includes(searchCmd)) {
+                    if (cmd[index] == 'on') item.status = true;
+                    else if (cmd[index] == 'of') item.status = false;
                 } 
             });
         }
