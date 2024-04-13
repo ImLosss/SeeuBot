@@ -8,7 +8,7 @@ const { ceklimit } = require('./function');
 const topup_cek = async (msg, sender) => {
 
     console.log(`\nfrom\t\t:`.green + `${ sender }`.gray.bold);
-    console.log(`fitur\t\t:`.green + `/tiktokdl`.gray.bold);
+    console.log(`fitur\t\t:`.green + `/topupml`.gray.bold);
     console.log(`pesan\t\t:`.green + `${ msg.body }`.gray.bold);
 
     let browser;
@@ -21,27 +21,32 @@ const topup_cek = async (msg, sender) => {
         browser = await puppeteer.launch();
         const page = await browser.newPage();
 
+        await page.setViewport({
+            width: 1600,
+            height: 1800
+        });
+
         // Set a user agent
         await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.150 Safari/537.36');
 
         await page.goto('https://www.codashop.com/id-id/mobile-legends');
 
-        page.setDefaultTimeout(5000);
+        page.setDefaultTimeout(30000);
 
         // Ambil screenshot halaman sebelum navigasi
         await page.screenshot({ path: './database/screenshot_before.png' });
 
         // Tunggu hingga elemen muncul sebelum mengambil data
-        await page.waitForSelector('#voucher > ul.form-section__denom-group');
+        await page.waitForSelector('#voucher > ul.denomination-card-group');
 
         // Mengambil data dari selector
         const items = await page.evaluate(() => {
-            const ulElement = document.querySelector('#voucher > ul.form-section__denom-group');
+            const ulElement = document.querySelector('#voucher > ul.denomination-card-group');
             const list = ulElement.querySelectorAll('li');
             let results = [];
             list.forEach((item) => {
-                const jml_dm = item.querySelector('div.form-section__denom-data-section > span');
-                const harga = item.querySelector('p > span.starting-price-value');
+                const jml_dm = item.querySelector('div.denom-section > div.denom-section__titles > div > span');
+                const harga = item.querySelector('div.price-section > div.price-section__price > div');
                 
                 results.push({ dm: jml_dm.textContent, harga: harga.textContent });
             });
@@ -80,7 +85,7 @@ const topup_cek = async (msg, sender) => {
 const topup = async (msg, sender, id, zoneid, index_items, email, client) => {
 
     console.log(`\nfrom\t\t:`.green + `${ sender }`.gray.bold);
-    console.log(`fitur\t\t:`.green + `/tiktokdl`.gray.bold);
+    console.log(`fitur\t\t:`.green + `/topupml`.gray.bold);
     console.log(`pesan\t\t:`.green + `${ msg.body }`.gray.bold);
 
     let browser;
@@ -105,15 +110,15 @@ const topup = async (msg, sender, id, zoneid, index_items, email, client) => {
         await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.150 Safari/537.36');
 
         await page.setViewport({
-            width: 1920,
-            height: 1280
+            width: 1600,
+            height: 1800
         });
 
         await page.goto('https://www.codashop.com/id-id/mobile-legends');
 
         console.log(`id: ${ id }\nid_zone: ${ zoneid }\nItems: ${ index_items }`);
 
-        page.setDefaultTimeout(10000);
+        page.setDefaultTimeout(30000);
 
         // Ambil screenshot halaman sebelum navigasi
         await page.screenshot({ path: './database/screenshot_before.png' });
@@ -125,14 +130,14 @@ const topup = async (msg, sender, id, zoneid, index_items, email, client) => {
         await page.type("#email", email);
 
         // Tunggu hingga elemen muncul sebelum mengambil data
-        await page.waitForSelector('#voucher > ul.form-section__denom-group');
+        await page.waitForSelector('#voucher > ul.denomination-card-group');
         // Mengambil data dari selector
 
         
         await page.evaluate((index_items) => {
             let pilihan = index_items - 1;
             console.log(pilihan)
-            const ulElement = document.querySelector('#voucher > ul.form-section__denom-group');
+            const ulElement = document.querySelector('#voucher > ul.denomination-card-group');
             const list = ulElement.querySelectorAll('li');
             list.forEach((item, index) => {
                 if (index == pilihan) {
