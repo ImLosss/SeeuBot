@@ -87,9 +87,9 @@ const animedl = async (msg, client, sender) => {
             return msg.reply('Reply pesan sesuai dengan indeks! Coba kembali...').catch(() => { chat.sendMessage('Reply pesan sesuai dengan indeks!, Coba kembali...') })
         }
 
-        link = 'anime link: ', data[pilAnime - 1].link;
+        link = data[pilAnime - 1].link;
 
-        console.log(link);
+        console.log('anime link: ', link);
 
         await page.goto(data[pilAnime - 1].link);
 
@@ -135,9 +135,9 @@ const animedl = async (msg, client, sender) => {
 
         anime = data[pilAnime - 1].title;
 
-        link = 'episode link: ', data[pilAnime - 1].link;
+        link = data[pilAnime - 1].link;
 
-        console.log(data);
+        console.log('episode link: ', data);
         console.log(link);
         console.log(pilAnime);
 
