@@ -68,6 +68,10 @@ const animedl = async (msg, client, sender) => {
             return msg.reply('Anime tidak ditemukan').catch(() => { chat.sendMessage('Anime tidak ditemukan') })
         };
 
+        await pageDownload.goto('https://otakudesu.cloud/episode/madome-episode-3-sub-indo/');
+
+        await pageDownload.screenshot({ path: './database/screenshot_after.png' });
+        
         input = "*Pilih Anime:*\n"
         no = 0;
 
@@ -144,15 +148,15 @@ const animedl = async (msg, client, sender) => {
 
         console.log('menuju link');
 
-        await pageDownload.goto(link);
+        await page.goto(link);
 
         console.log('mengambil screenshot');
 
-        await pageDownload.waitForTimeout(10000);
+        await page.waitForTimeout(10000);
 
-        await pageDownload.screenshot({ path: './database/screenshot_before.png' });
+        await page.screenshot({ path: './database/screenshot_before.png' });
         
-        data = await pageDownload.evaluate(() => {
+        data = await page.evaluate(() => {
             const ulElement = document.querySelector('#venkonten > div.venser > div.venutama > div.download > ul:nth-child(2)');
             const items = ulElement.querySelectorAll('li:nth-child(3) > a');
             let result = false;
