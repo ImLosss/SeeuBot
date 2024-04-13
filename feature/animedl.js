@@ -8,7 +8,6 @@ const animedl = async (msg, client, sender) => {
     try {
         browser = await puppeteer.launch();
         const page = await browser.newPage();
-        const pageDownload = await browser.newPage();
         let data;
         let no;
         let input;
@@ -45,9 +44,7 @@ const animedl = async (msg, client, sender) => {
 
         page.setDefaultTimeout(60000);
 
-        await page.goto('https://otakudesu.cloud/episode/madome-episode-3-sub-indo/');
-
-        await page.screenshot({ path: './database/screenshot_after.png' });
+        await page.goto(newUrl);
 
         await page.waitForSelector('div.venser > div > div > ul')
 
@@ -69,7 +66,7 @@ const animedl = async (msg, client, sender) => {
             await browser.close();
             return msg.reply('Anime tidak ditemukan').catch(() => { chat.sendMessage('Anime tidak ditemukan') })
         };
-        
+
         input = "*Pilih Anime:*\n"
         no = 0;
 
