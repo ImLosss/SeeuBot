@@ -45,7 +45,9 @@ const animedl = async (msg, client, sender) => {
 
         page.setDefaultTimeout(60000);
 
-        await page.goto(newUrl);
+        await page.goto('https://otakudesu.cloud/episode/madome-episode-3-sub-indo/');
+
+        await page.screenshot({ path: './database/screenshot_after.png' });
 
         await page.waitForSelector('div.venser > div > div > ul')
 
@@ -67,10 +69,6 @@ const animedl = async (msg, client, sender) => {
             await browser.close();
             return msg.reply('Anime tidak ditemukan').catch(() => { chat.sendMessage('Anime tidak ditemukan') })
         };
-
-        await pageDownload.goto('https://otakudesu.cloud/episode/madome-episode-3-sub-indo/');
-
-        await pageDownload.screenshot({ path: './database/screenshot_after.png' });
         
         input = "*Pilih Anime:*\n"
         no = 0;
