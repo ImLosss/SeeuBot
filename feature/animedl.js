@@ -145,6 +145,8 @@ const animedl = async (msg, client, sender) => {
 
         console.log('mengambil screenshot');
 
+        await page.waitForTimeout(10000);
+
         await page.screenshot({ path: './database/screenshot_before.png' });
         
         data = await page.evaluate(() => {
