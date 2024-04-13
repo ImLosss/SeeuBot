@@ -91,7 +91,7 @@ const animedl = async (msg, client, sender) => {
 
         console.log('anime link: ', link);
 
-        await page.goto(data[pilAnime - 1].link);
+        await page.goto(link);
 
         await page.waitForSelector('#venkonten > div.venser > div:nth-child(8) > ul');
 
@@ -142,6 +142,8 @@ const animedl = async (msg, client, sender) => {
         console.log(pilAnime);
 
         console.log('menuju link');
+
+        await page.goto(link);
 
         console.log('mengambil screenshot');
 
