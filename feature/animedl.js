@@ -134,9 +134,7 @@ const animedl = async (msg, client, sender) => {
 
         console.log('link episode: ', data[pilAnime - 1].link);
 
-        await page.goto(data[pilAnime - 1].link);
-
-        await page.waitForTimeout(5000);
+        await page.goto(data[pilAnime - 1].link); 
 
         await page.screenshot({ path: './database/screenshot_before.png' });
         
