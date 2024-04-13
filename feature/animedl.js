@@ -12,6 +12,7 @@ const animedl = async (msg, client, sender) => {
         let no;
         let input;
         let anime;
+        let link;
 
         const chat = await msg.getChat();
 
@@ -86,9 +87,11 @@ const animedl = async (msg, client, sender) => {
             return msg.reply('Reply pesan sesuai dengan indeks! Coba kembali...').catch(() => { chat.sendMessage('Reply pesan sesuai dengan indeks!, Coba kembali...') })
         }
 
-        console.log('anime link: ', data[pilAnime - 1].link);
+        link = 'anime link: ', data[pilAnime - 1].link;
 
-        await page.goto(data[pilAnime - 1].link);
+        console.log(link);
+
+        await page.goto(link);
 
         await page.waitForSelector('#venkonten > div.venser > div:nth-child(8) > ul');
 
@@ -132,11 +135,13 @@ const animedl = async (msg, client, sender) => {
 
         anime = data[pilAnime - 1].title;
 
-        console.log('link episode: ', data[pilAnime - 1].link);
+        link = 'episode link: ', data[pilAnime - 1].link;
+
+        console.log(link);
 
         console.log('menuju link');
 
-        await page.goto(data[pilAnime - 1].link); 
+        await page.goto(link); 
 
         console.log('mengambil screenshot');
 
