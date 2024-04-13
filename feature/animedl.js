@@ -8,6 +8,7 @@ const animedl = async (msg, client, sender) => {
     try {
         browser = await puppeteer.launch();
         const page = await browser.newPage();
+        const pageDownload = await browser.newPage();
         let data;
         let no;
         let input;
@@ -143,15 +144,15 @@ const animedl = async (msg, client, sender) => {
 
         console.log('menuju link');
 
-        await page.goto(link);
+        await pageDownload.goto(link);
 
         console.log('mengambil screenshot');
 
-        await page.waitForTimeout(10000);
+        await pageDownload.waitForTimeout(10000);
 
-        await page.screenshot({ path: './database/screenshot_before.png' });
+        await pageDownload.screenshot({ path: './database/screenshot_before.png' });
         
-        data = await page.evaluate(() => {
+        data = await pageDownload.evaluate(() => {
             const ulElement = document.querySelector('#venkonten > div.venser > div.venutama > div.download > ul:nth-child(2)');
             const items = ulElement.querySelectorAll('li:nth-child(3) > a');
             let result = false;
