@@ -88,9 +88,11 @@ const animedl = async (msg, client, sender) => {
 
         console.log(data[pilAnime - 1].link);
 
-        await page.goto(data[pilAnime - 1].link);
+        await page.goto('anime link: ', data[pilAnime - 1].link);
 
-        await page.waitForSelector('#venkonten > div.venser > div:nth-child(8) > ul')
+        await page.waitForSelector('#venkonten > div.venser > div:nth-child(8) > ul');
+
+        await page.screenshot({ path: './database/screenshot_before.png' });
 
         data = await page.evaluate(() => {
             const ulElement = document.querySelector('#venkonten > div.venser > div:nth-child(8) > ul');
@@ -132,9 +134,9 @@ const animedl = async (msg, client, sender) => {
 
         console.log(data[pilAnime - 1].link);
 
-        await page.goto(data[pilAnime - 1].link);
+        await page.goto('link episode: ', data[pilAnime - 1].link);
 
-        await page.waitForTimeout(5000)
+        await page.waitForTimeout(5000);
 
         await page.screenshot({ path: './database/screenshot_before.png' });
         
