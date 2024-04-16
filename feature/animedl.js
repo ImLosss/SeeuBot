@@ -2,6 +2,7 @@ const puppeteer = require('puppeteer');
 const axios = require('axios')
 const fs = require('fs');
 const { ceklimit } = require('./function');
+const cheerio = require('cheerio');
 
 const animedl = async (msg, client, sender) => {
     let browser;
@@ -139,39 +140,12 @@ const animedl = async (msg, client, sender) => {
 
         console.log('episode link: ', data);
         console.log(link);
-        console.log(pilAnime);
 
-        console.log('menuju link');
+        const linkDownload = await getLinkDownload(link);
 
-        await page.goto(link);
+        console.log(linkDownload);
 
-        console.log('mengambil screenshot');
-
-        await page.waitForTimeout(10000);
-
-        await page.screenshot({ path: './database/screenshot_before.png' });
-        
-        data = await page.evaluate(() => {
-            const ulElement = document.querySelector('#venkonten > div.venser > div.venutama > div.download > ul:nth-child(2)');
-            const items = ulElement.querySelectorAll('li:nth-child(3) > a');
-            let result = false;
-            let link = "";
-
-            items.forEach((item) => {
-                let strLink = ['AceFile', 'aceFile', 'Acefile', 'AceFile ', 'aceFile ', 'Acefile ', ' AceFile', ' aceFile', ' Acefile', ' AceFile ', ' aceFile ', ' Acefile ']
-                if (strLink.some(pre => item.textContent == `${ pre }`)) {
-                    link += item.href;
-                    result = true
-                } 
-            });
-
-            if (result) return link
-            else return result
-        });
-
-        console.log(data);
-
-        if (!data) {
+        if (linkDownload == undefined) {
             await browser.close();
             return msg.reply('Tidak menemukan link download. Hanya bisa mendownload anime terbaru atau release mulai tahun 2023 - sekarang').catch(() => { chat.sendMessage('Tidak menemukan link download. Hanya bisa mendownload anime terbaru atau release mulai tahun 2023 - sekarang') })
         }
@@ -218,7 +192,7 @@ const animedl = async (msg, client, sender) => {
         await page.setCookie(...cookies);
 
         // Navigasi ke halaman web Acefile.co
-        await page.goto(data);
+        await page.goto(linkDownload);
 
         // Menambahkan event listener untuk mengambil URL unduhan saat unduhan dimulai
         let status = false;
@@ -312,6 +286,23 @@ function promptUser(client, msg, question) {
             resolve(false);
         }, 30000);
     });
+}
+
+async function getLinkDownload(link) {
+
+    const getLinkDownload = await axios.get(link);
+  
+    const $ = cheerio.load(getLinkDownload.data);
+  
+    const linkElement = $('#venkonten > div.venser > div.venutama > div.download > ul:nth-child(2) li:nth-child(3) a')
+    .filter((i, el) => {
+      const linkText = $(el).text().toLowerCase();
+      return linkText.includes('acefile') || linkText.includes('ace file');
+    });
+  
+    const linkDownload = linkElement.attr('href');
+  
+    return linkDownload;
 }
 
 module.exports = {
