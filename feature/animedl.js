@@ -141,14 +141,20 @@ const animedl = async (msg, client, sender) => {
         console.log('episode link: ', data);
         console.log(link);
 
-        const linkDownload = await getLinkDownload(link);
+        let linkDownload = await getLinkDownload(link);
 
         console.log(linkDownload);
 
-        if (linkDownload == undefined) {
+        if (Array.isArray(linkDownload)) {
             await browser.close();
-            return msg.reply('Tidak menemukan link download. Hanya bisa mendownload anime terbaru atau release mulai tahun 2023 - sekarang').catch(() => { chat.sendMessage('Tidak menemukan link download. Hanya bisa mendownload anime terbaru atau release mulai tahun 2023 - sekarang') })
+            let msgstr = `Tidak menemukan link download Drive. Berikut adalah link alternatif yang dapat anda gunakan untuk mengunduh file anda\n\n*${ anime } 720p*\n`;
+            linkDownload.forEach((element) => {
+                msgstr+=`\n\n${ element.host } : ${ element.link }`;
+            })
+            return msg.reply(msgstr).catch(() => { chat.sendMessage(msgstr) })
         }
+
+        linkDownload = linkDownload.link;
 
         // Set header Cookie
         const cookies = [{
@@ -288,21 +294,29 @@ function promptUser(client, msg, question) {
     });
 }
 
-async function getLinkDownload(link) {
+async function getLinkDownload(linkk) {
 
-    const getLinkDownload = await axios.get(link);
-  
+    const getLinkDownload = await axios.get(linkk);
+
     const $ = cheerio.load(getLinkDownload.data);
-  
-    const linkElement = $('#venkonten > div.venser > div.venutama > div.download > ul:nth-child(2) li:nth-child(3) a')
-    .filter((i, el) => {
-      const linkText = $(el).text().toLowerCase();
-      return linkText.includes('acefile') || linkText.includes('ace file');
+
+    let linkElement = $('#venkonten > div.venser > div.venutama > div.download > ul:nth-child(2) li:nth-child(3) a');
+
+    const links = [];
+
+    linkElement.each((index, element) => {
+        links.push({
+            host: $(element).text().toLowerCase().trim(),
+            link: $(element).attr('href')
+        })
     });
-  
-    const linkDownload = linkElement.attr('href');
-  
-    return linkDownload;
+
+    // Menemukan objek pertama di mana host adalah 'mega'
+    const cekLink = links.find(item => item.host === 'acefile' || item.host === 'ace file');
+
+    // console.log(cekLink);
+    if (cekLink != undefined) return cekLink;
+    return links;
 }
 
 module.exports = {
