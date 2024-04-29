@@ -334,7 +334,8 @@ async function tojpg(){
   
       apiInstance.convertToJpg(quality, imageFile, (error, data) => {
         if (error) {
-          console.log('error', error)
+          console.log('error', error.message)
+          resolve('./database/nothumb.jpeg');
         } else {
           // Simpan file hasil konversi
           fs.writeFile('./database/thumbyta.jpg', data, (err) => {
