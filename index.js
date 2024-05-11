@@ -72,6 +72,10 @@ const client = new Client({
         type: 'remote',
         remotePath: `https://raw.githubusercontent.com/wppconnect-team/wa-version/main/html/${wwebVersion}.html`,
     },
+    puppeteer: {
+        product: "chrome",
+        executablePath: "/usr/bin/chromium-browser"
+    }
 });
 
 client.on('qr', qrdata => {
