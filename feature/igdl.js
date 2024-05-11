@@ -21,7 +21,10 @@ const igdl = async (msg, url, sender, client) => {
 
         msg.reply('[⏳] Tunggu sebentar...');
 
-        browser = await puppeteer.launch();
+        browser = await puppeteer.launch({
+            headless: true,
+            args: ['--no-sandbox']
+         });
         const page = await browser.newPage();
 
         // Set a user agent
@@ -78,7 +81,7 @@ const igdl = async (msg, url, sender, client) => {
                     const base64Data = Buffer.from(result.buffer, 'binary').toString('base64');
                     const media = new MessageMedia(result.mimetype, base64Data, filename, result.filesize);
                     if(result.mimetype == 'image/jpeg' || result.mimetype == 'image/png') msg.reply(media, { caption: '✅Berhasil', sendMediaAsDocument:true }).catch(() => { chat.sendMessage(media, { caption: '✅Berhasil'}); })  
-                    else msg.reply(media, { caption: '✅Berhasil', sendMediaAsDocument:true }).catch(() => { chat.sendMessage(media, { caption: '✅Berhasil', sendMediaAsDocument:true }); })  
+                    else msg.reply(media, { caption: '✅Berhasil' }).catch(() => { chat.sendMessage(media, { caption: '✅Berhasil', sendMediaAsDocument:true }); })  
                 } else {
                     drive.uploadFile(result.path, filename)
                     .then((result) => {

@@ -16,7 +16,10 @@ const topanime = async (msg, sender) => {
             if(limit) return msg.reply('Jumlah pemakaian Private anda hari ini telah mencapai batas, anda dapat menggunakan command kembali besok. Masuk ke grup SeeuBot agar dapat menggunakan command kembali:\n\nhttps://chat.whatsapp.com/Jy1xiPwFMl6I5TaVciJA3P');
         }
 
-        browser = await puppeteer.launch();
+        browser = await puppeteer.launch({
+            headless: true,
+            args: ['--no-sandbox']
+         });
         const page = await browser.newPage();
 
         // Set a user agent

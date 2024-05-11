@@ -18,7 +18,10 @@ const topup_cek_genshin = async (msg, sender) => {
         const chat = await msg.getChat();
         msg.reply('[⏳] Tunggu sebentar...');
 
-        browser = await puppeteer.launch();
+        browser = await puppeteer.launch({
+            headless: true,
+            args: ['--no-sandbox']
+         });
         const page = await browser.newPage();
 
         // Set a user agent

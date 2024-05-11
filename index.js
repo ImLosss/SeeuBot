@@ -75,7 +75,8 @@ const client = new Client({
     },
     puppeteer: {
         headless: true,
-        args: ['--no-sandbox']
+        args: ['--no-sandbox'],
+        executablePath: "/usr/bin/chromium-browser"
     }
 });
 
@@ -324,51 +325,6 @@ client.on('message', async msg => {
                     break;
                 }
             }
-        } else if (prefix.some(pre => text.startsWith(`${pre}topup ml`))) {
-            if(prefix.some(pre => text === `${pre}topup ml`)) {
-                topup_cek(msg);
-            } else if(prefix.some(pre => text.startsWith(`${pre}topup ml`)) && cmd.length == 6) {
-                await topup(msg, sender, cmd[2], cmd[3], cmd[4], cmd[5], client);
-            }
-        } else if (prefix.some(pre => text.startsWith(`${pre}topup genshin`))) {
-            if(prefix.some(pre => text === `${pre}topup genshin`)) {
-                topup_cek_genshin(msg);
-            } else if(prefix.some(pre => text.startsWith(`${pre}topup genshin`)) && cmd.length == 6) {
-                let timer = null;
-                const listener = async (msg2) => {
-                    const pesan = msg2.body
-                    if (msg2.hasQuotedMsg) {
-                        const reply = await msg2.getQuotedMessage();
-                        const msg_reply = reply.body;
-                        if((pesan == 1 || pesan == 2) && msg_reply.includes('Silahkan pilih metode pembayaran :')) {
-                            clearTimeout(timer);
-                            reply.delete(true);
-                            let payment = undefined;
-                            if(pesan == 1) {
-                                payment = '#paymentChannel_227';
-                            } else if (pesan == 2) {
-                                payment = '#paymentChannel_233';
-                            }
-                            await topup_genshin(msg, sender, cmd[2], cmd[3], cmd[4], cmd[5], payment, client);
-                        } else if (msg_reply.includes('Silahkan pilih metode pembayaran :')) {
-                            msg.reply('harap reply pesan sesuai indeks diatas');
-                        }
-                    }
-                    if(pesan.includes("Silahkan pilih metode pembayaran :")) {
-                        timer = setTimeout(async => {
-                            msg2.delete(true);
-                        },29000)
-                    }
-                };
-                // Menambahkan listener ke chat
-                client.addListener('message_create', listener);
-                // Mengatur waktu tunggu maksimum
-                setTimeout(() => {
-                    // Timeout tercapai, menghentikan listener dan membersihkan listener
-                    client.removeListener('message_create', listener);
-                }, 30000); // 30 detik (dalam milidetik)
-                msg.reply('Silahkan pilih metode pembayaran :\n[1] Gopay\n[2] Shopeepay\n\n_*Reply pesan ini sesuai Indeks*_')
-            }
         } else if (prefix.some(pre => text == `${pre}topdf`)) topdf(msg, sender);
         else if (prefix.some(pre => text == `${pre}todocx`)) todocx(msg, sender);
         else if(prefix.some(pre => text.startsWith(`${pre}bugreport`))) await bugreport(msg, client);
@@ -378,7 +334,6 @@ client.on('message', async msg => {
         else if(prefix.some(pre => text.startsWith(`${pre}setlang`))) await setLang(sender, msg);
         else if(prefix.some(pre => text.startsWith(`${pre}ai`))) await ai(msg, sender, client);
         else if(prefix.some(pre => text.startsWith(`${pre}musicinfo`))) await musicinfo(msg, sender);
-        else if(prefix.some(pre => text == `${pre}animedl`)) await animedl(msg, client, sender);
         else if (prefix.some(pre => text === `${pre}backup`) && sender == "6282192598451@c.us") await backup_database('database', 'database.zip', msg);
         else if (prefix.some(pre => text === `${pre}sendupdate`) && sender == "6282192598451@c.us") await sendupdate(client, msg);
         else if (prefix.some(pre => text.startsWith(`${pre}updatecmd`)) && sender == "6282192598451@c.us") fungsi.updatecmd(msg);

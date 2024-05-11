@@ -7,7 +7,10 @@ const cheerio = require('cheerio');
 const animedl = async (msg, client, sender) => {
     let browser;
     try {
-        browser = await puppeteer.launch();
+        browser = await puppeteer.launch({
+            headless: true,
+            args: ['--no-sandbox']
+         });
         const page = await browser.newPage();
         let data;
         let no;
