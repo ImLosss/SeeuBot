@@ -242,7 +242,7 @@ const download = async (url, path) => {
                 setTimeout(() => {
                     tojpg()
                     .then((result) => {
-                        fs.unlinkSync(result);
+                        if (result != './database/nothumb.jpeg') fs.unlinkSync(result);
                         resolve(result)
                     })
                 }, 100);
