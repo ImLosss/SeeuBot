@@ -64,19 +64,15 @@ const wrong_format = `Maaf, pesan Anda tidak dapat dipahami. Berikut adalah menu
 
 Jika Anda memiliki pertanyaan tentang cara menggunakan fitur tertentu, Anda dapat mengirim pesan dengan format /seeu cara menggunakan [command].`
 
-const wwebVersion = '2.2407.3';
+const wwebVersion = '2.2412.54';
 const client = new Client({
-    ffmpeg: ffmpegPath,
     authStrategy: new LocalAuth(),
-    args: ['--no-sandbox', '--disable-setuid-sandbox'],
-    webVersionCache: {
-        type: 'remote',
-        remotePath: `https://raw.githubusercontent.com/wppconnect-team/wa-version/main/html/${wwebVersion}.html`,
-    },
+    // webVersionCache: {
+    //     type: 'remote',
+    //     remotePath: `https://raw.githubusercontent.com/wppconnect-team/wa-version/main/html/${wwebVersion}.html`,
+    // },
     puppeteer: {
-        headless: true,
-        args: ['--no-sandbox'],
-        executablePath: "/usr/bin/chromium-browser"
+        executablePath: "/usr/bin/google-chrome"
     }
 });
 
@@ -132,9 +128,11 @@ client.on('message', async msg => {
         let sender = msg.from;
 
         if (prefix.some(pre => text === `${pre}test`)) {
-            const media = MessageMedia.fromFilePath('./database/thumbyta.jpg');
+            console.log('ini jalna');
+            const media = MessageMedia.fromFilePath('./database/test.mp4');
 
             chat.sendMessage(media);
+            chat.sendMessage(media, { sendMediaAsDocument: true });
         }
 
     } catch(err) {
