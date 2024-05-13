@@ -64,14 +64,10 @@ const wrong_format = `Maaf, pesan Anda tidak dapat dipahami. Berikut adalah menu
 
 Jika Anda memiliki pertanyaan tentang cara menggunakan fitur tertentu, Anda dapat mengirim pesan dengan format /seeu cara menggunakan [command].`
 
-const wwebVersion = '2.2407.3';
+
 const client = new Client({
     ffmpeg: ffmpegPath,
     authStrategy: new LocalAuth(),
-    webVersionCache: {
-        type: 'remote',
-        remotePath: `https://raw.githubusercontent.com/wppconnect-team/wa-version/main/html/${wwebVersion}.html`,
-    },
 });
 
 client.on('qr', qrdata => {
@@ -153,173 +149,7 @@ client.on('message', async msg => {
             }]
             fs.writeFileSync(dir_data_user, JSON.stringify(data_user));
         }
-
-        if (prefix.some(pre => text.startsWith(`${pre}ask`)) || prefix.some(pre => text.startsWith(`${pre}seeu`))) {
-            cmd[0] = cmd[0].toLowerCase();
-            if(prefix.some(pre => cmd[0] === `${pre}seeu`) && cmd[1] != null || prefix.some(pre => cmd[0] === `${pre}ask`) && cmd[1] != null) {
-                await ChatAIHandler(text, msg, sender);
-            } else if (cmd[1] == null && prefix.some(pre => cmd[0] === `${pre}seeu`) || cmd[1] == null && prefix.some(pre => cmd[0] === `${pre}ask`)) {
-                msg.reply('tchh, pertanyaannya mana???');
-            } else {
-                msg.reply('sepertinya formatmu salah, kirim kembali dengan format */ask [pertanyaan]*');
-            }
-        } else if (prefix.some(pre => text == `${pre}menu`)) {
-            const menu = fungsi.getMenu();
-            msg.reply(menu);
-        } else if (prefix.some(pre => text.startsWith(`${pre}bgr`))) await EditPhotoHandler(text, msg, sender);
-        
-        else if (prefix.some(pre => text.startsWith(`${pre}sapa`)) && chat.isGroup) {
-            let text = "";
-            let mentions = [];
-
-            const participants = chat.participants;
-            const randomIndex = Math.floor(Math.random() * participants.length);
-
-            const randomParticipant = participants[randomIndex];
-            const contact = await client.getContactById(randomParticipant.id._serialized);
-
-            mentions.push(contact);
-            text += `@${randomParticipant.id.user} `;
-
-            await chat.sendMessage(text, {
-                mentions
-            });
-        } else if(prefix.some(pre => text.startsWith(`${pre}yts`))) await yts(msg);
-        else if (prefix.some(pre => text.startsWith(`${pre}yta`))) await yta(msg, sender, client);
-        else if (prefix.some(pre => text.startsWith(`${pre}ytv`))) await ytv(msg, sender, client);
-        else if (prefix.some(pre => text.startsWith(`${pre}ythd`))) await ythd(msg, sender, client);
-        else if (prefix.some(pre => text === `${pre}s`)) await stiker(msg, sender, client);
-        else if (prefix.some(pre => text === `${pre}deldrive`)) await emptyTrash(msg);
-        else if(prefix.some(pre => text.startsWith(`${pre}gombal` && chat.isGroup))){
-            if(prefix.some(pre => cmd[0] === `${pre}gombal`)) {
-                const mentionedIds = msg.mentionedIds;
-                console.log("ini :",mentionedIds);
-                for(let participant of chat.participants){
-                    let text = "";
-                    let mentions = [];
-                    if(participant.id._serialized == mentionedIds){
-                        const contact = await client.getContactById(participant.id._serialized);
-                        mentions.push(contact);
-                        text += `@${participant.id.user} `;
-                        await gombal(msg, text, mentions);
-                    }
-                }
-            }
-        } else if (prefix.some(pre => text === `${pre}everyone`) && chat.isGroup && isAdmin){
-            let text = "";
-            let mentions = [];
-        
-            for (let participant of chat.participants) {
-                const contact = await client.getContactById(participant.id._serialized);
-        
-                mentions.push(contact);
-                text += `@${participant.id.user} `;
-            }
-        
-            await chat.sendMessage(text, { mentions });          
-        } else if(prefix.some(pre => text.startsWith(`${ pre }absen`) || text.startsWith(`${ pre }hadir`) || text.startsWith(`${ pre }hadirc`)  || text == `${ pre }close`) && chat.isGroup) await absensiHandler(msg, sender, isAdmin)
-        else if(prefix.some(pre => text.startsWith(`${pre}animesearch`))){
-            if(chat.isGroup){
-                sender = msg.author;
-            } else {
-                sender = msg.from;
-            }
-            if(prefix.some(pre => cmd[0] === `${pre}animesearch`) && cmd[1] != null) {
-                await animesearch(msg, sender);
-            } else {
-                msg.reply('sepertinya formatmu salah, kirim kembali dengan format */animesearch [search]*');
-            }
-        } else if(prefix.some(pre => text.startsWith(`${pre}animeinfo`))){
-            if(chat.isGroup){
-                sender = msg.author;
-            } else {
-                sender = msg.from;
-            }
-            if(prefix.some(pre => cmd[0] === `${pre}animeinfo`) && cmd[1] != null) {
-                await animeinfo(msg, sender);
-            } else {
-                msg.reply('sepertinya formatmu salah, kirim kembali dengan format */animeinfo [id_anime]*');
-            }
-        } else if (prefix.some(pre => text.startsWith(`${pre}igdl`))) {
-            let url = msg.body;
-            url = url.split(' ');
-            url = url[1];
-            if(prefix.some(pre => cmd[0] === `${pre}igdl`) && cmd[1] != null) {
-                await igdl(msg, url, sender, client);
-            } else {
-                msg.reply('sepertinya formatmu salah, kirim kembali dengan format */igdl [link]*');
-            }
-        } else if (prefix.some(pre => text.startsWith(`${pre}tiktokdl`))) await tiktokdl(msg, sender);
-        else if (prefix.some(pre => text === (`${pre}topanime`))) await topanime(msg, sender);
-        else if (prefix.some(pre => text.startsWith(`${pre}fbdl`))) {
-            let url = msg.body;
-            url = url.split(' ');
-            url = url[1];
-            if(prefix.some(pre => cmd[0] === `${pre}fbdl`) && cmd[1] != null) {
-                await fbdl(msg, url, sender);
-            } else {
-                msg.reply('sepertinya formatmu salah, kirim kembali dengan format */fbdl [link]*');
-            }
-        } else if (prefix.some(pre => text.startsWith(`${pre}audtotext`))) await audtotext(msg, sender);
-        else if (prefix.some(pre => text.startsWith(`${pre}pinterest`))) {
-            if(prefix.some(pre => cmd[0] === `${pre}pinterest`) && cmd[1] != null) {
-                await pinterest(msg, msg.from);
-            } else {
-                msg.reply('sepertinya formatmu salah, kirim kembali dengan format */pinterest [search]*');
-            }
-        } else if (prefix.some(pre => text === `${pre}next`)) await pint_send(msg, msg.from);
-        else if (prefix.some(pre => text.startsWith(`${pre}antitoxic`)) && chat.isGroup) {
-            if(prefix.some(pre => cmd[0] === `${pre}antitoxic`) && cmd[1] != null) {
-                if (isAdmin) {
-                    for(let participant of chat.participants) {
-                        if(participant.id._serialized === msg.author) {
-                            if(participant.isAdmin){
-                                await antitoxic(text, msg, msg.from);
-                            }else if(cmd[1] == 'list') {
-                                await antitoxic(text, msg, msg.from);
-                            } else {
-                                msg.reply('command khusus Admin');
-                            }
-                        }
-                    }
-                } else {
-                    msg.reply(`Sebelum menggunakan command ini, jadiin ${ client.info.pushname } admin dlu dong...`);  
-                }
-            } else {
-                msg.reply('sepertinya formatmu salah, kirim kembali dengan format */antitoxic [on/off/add/list]*');
-            }
-        } else if (prefix.some(pre => msg.body.startsWith(`${pre}hidetag`)) && chat.isGroup) {
-            const authorId = msg.author;
-            let pesan = msg.body;
-            pesan = pesan.split(' ');
-            if (pesan.length >= 2) {
-                pesan = pesan.slice(1,pesan.length);
-                pesan = pesan.join(" ");
-            }
-
-            if (pesan[1] == null) {
-                return msg.reply('pesannya mana?');
-            }
-            for(let participant of chat.participants) {
-                if(participant.id._serialized === authorId) {
-                    let text = "";
-                    let mentions = [];
-                
-                    for (let participant of chat.participants) {
-                    const contact = await client.getContactById(participant.id._serialized);
-                
-                    mentions.push(contact);
-                    text += `@${participant.id.user} `;
-                    }
-                
-                    await chat.sendMessage(pesan, { mentions })
-                    .then(async () => {
-                        msg.delete(true);
-                    })
-                    break;
-                }
-            }
-        } else if (prefix.some(pre => text.startsWith(`${pre}topup ml`))) {
+        if (prefix.some(pre => text.startsWith(`${pre}topup ml`))) {
             if(prefix.some(pre => text === `${pre}topup ml`)) {
                 topup_cek(msg);
             } else if(prefix.some(pre => text.startsWith(`${pre}topup ml`)) && cmd.length == 6) {
@@ -364,52 +194,8 @@ client.on('message', async msg => {
                 }, 30000); // 30 detik (dalam milidetik)
                 msg.reply('Silahkan pilih metode pembayaran :\n[1] Gopay\n[2] Shopeepay\n\n_*Reply pesan ini sesuai Indeks*_')
             }
-        } else if (prefix.some(pre => text == `${pre}topdf`)) topdf(msg, sender);
-        else if (prefix.some(pre => text == `${pre}todocx`)) todocx(msg, sender);
-        else if(prefix.some(pre => text.startsWith(`${pre}bugreport`))) await bugreport(msg, client);
-        else if(prefix.some(pre => text == `${pre}limit`)) await limit(msg, sender);
-        else if(prefix.some(pre => text == `${pre}update`)) await newupdate(msg);
-        else if(prefix.some(pre => text.startsWith(`${pre}setname`))) await setName(sender, msg);
-        else if(prefix.some(pre => text.startsWith(`${pre}setlang`))) await setLang(sender, msg);
-        else if(prefix.some(pre => text.startsWith(`${pre}ai`))) await ai(msg, sender, client);
-        else if(prefix.some(pre => text.startsWith(`${pre}musicinfo`))) await musicinfo(msg, sender);
+        } 
         else if(prefix.some(pre => text == `${pre}animedl`)) await animedl(msg, client, sender);
-        else if (prefix.some(pre => text === `${pre}backup`) && sender == "6282192598451@c.us") await backup_database('database', 'database.zip', msg);
-        else if (prefix.some(pre => text === `${pre}sendupdate`) && sender == "6282192598451@c.us") await sendupdate(client, msg);
-        else if (prefix.some(pre => text.startsWith(`${pre}updatecmd`)) && sender == "6282192598451@c.us") fungsi.updatecmd(msg);
-        else if(prefix.some(pre => text.startsWith(`${pre}updateapi`))) await updateAPI(msg, sender);
-        else if(prefix.some(pre => text == `${pre}delapi`)) await delAPI(sender, msg);
-        // else if (prefix.some(pre => text.startsWith(`${ pre }tess`))) await mediafire(msg, sender);
-        else if (prefix.some(pre => text.startsWith(`${ pre }eden`))) await edenHandler(text, msg, sender);
-        else if(chat.isGroup) {
-            for(let participant of chat.participants) {
-                if(participant.id._serialized === '6288809606244@c.us' && participant.isAdmin) {
-                    const file_member_warning = `./database/antitoxic/${ msg.from }_warning`;
-                    const file_grup_dir = `./database/antitoxic/data_grup`;
-                    const fileData = fs.readFileSync(file_grup_dir, 'utf-8');
-                    let data_grup = JSON.parse(fileData);
-                    let founded_grup = data_grup.findIndex(item => item.id_grup === msg.from);
-                    if (founded_grup >= 0) {
-                        const fileData2 = fs.readFileSync(file_member_warning, 'utf-8');
-                        let warn = JSON.parse(fileData2);
-                        let founded = warn.findIndex(item => item.user === msg.author);
-                        if (founded === -1) {
-                            warn.push({ user: msg.author, teguran: 0, status: 'unmute' });
-                            fs.writeFileSync(file_member_warning, JSON.stringify(warn));
-                        }
-                        const contact = await client.getContactById(msg.author);
-                        mentions = [];
-                        mentions.push(contact);
-                        await cek_word(text, msg, mentions, contact);
-                    }
-                }
-            }
-        } else if(!chat.isGroup && msg.body != '' && !msg.hasQuotedMsg) {
-            msg.reply(wrong_format)
-            .catch(() => {
-                chat.sendMessage(wrong_format);
-            })
-        }
         
         //kick member
         // else if (text.startsWith("/kickme") && chat.isGroup) {
