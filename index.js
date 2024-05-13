@@ -64,17 +64,10 @@ const wrong_format = `Maaf, pesan Anda tidak dapat dipahami. Berikut adalah menu
 
 Jika Anda memiliki pertanyaan tentang cara menggunakan fitur tertentu, Anda dapat mengirim pesan dengan format /seeu cara menggunakan [command].`
 
-const wwebVersion = '2.2407.3';
 const client = new Client({
     ffmpeg: ffmpegPath,
     authStrategy: new LocalAuth(),
-    args: ['--no-sandbox', '--disable-setuid-sandbox'],
-    webVersionCache: {
-        type: 'remote',
-        remotePath: `https://raw.githubusercontent.com/wppconnect-team/wa-version/main/html/${wwebVersion}.html`,
-    },
     puppeteer: {
-        headless: true,
         args: ['--no-sandbox'],
         executablePath: "/usr/bin/chromium-browser"
     }
@@ -256,7 +249,6 @@ client.on('message', async msg => {
                 msg.reply('sepertinya formatmu salah, kirim kembali dengan format */igdl [link]*');
             }
         } else if (prefix.some(pre => text.startsWith(`${pre}tiktokdl`))) await tiktokdl(msg, sender);
-        else if (prefix.some(pre => text === (`${pre}topanime`))) await topanime(msg, sender);
         else if (prefix.some(pre => text.startsWith(`${pre}fbdl`))) {
             let url = msg.body;
             url = url.split(' ');

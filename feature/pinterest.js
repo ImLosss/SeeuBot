@@ -22,7 +22,10 @@ const pinterest = async (msg, sender) => {
     searchString = searchString.slice(1,searchString.length);
     searchString = searchString.join(" ");
   try {
-        browser = await puppeteer.launch();
+        browser = await puppeteer.launch({
+            headless: true,
+            args: ['--no-sandbox']
+         });
         const page = await browser.newPage();
 
         // Set a user agent
