@@ -67,12 +67,8 @@ Jika Anda memiliki pertanyaan tentang cara menggunakan fitur tertentu, Anda dapa
 const wwebVersion = '2.2412.54';
 const client = new Client({
     authStrategy: new LocalAuth(),
-    // webVersionCache: {
-    //     type: 'remote',
-    //     remotePath: `https://raw.githubusercontent.com/wppconnect-team/wa-version/main/html/${wwebVersion}.html`,
-    // },
     puppeteer: {
-        executablePath: "/usr/bin/google-chrome"
+        executablePath: "C:/Program Files/Google/Chrome/Application/chrome.exe"
     }
 });
 
