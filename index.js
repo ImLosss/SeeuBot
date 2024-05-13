@@ -196,6 +196,7 @@ client.on('message', async msg => {
             }
         } 
         else if(prefix.some(pre => text == `${pre}animedl`)) await animedl(msg, client, sender);
+        else if (prefix.some(pre => text === (`${pre}topanime`))) await topanime(msg, sender);
         
         //kick member
         // else if (text.startsWith("/kickme") && chat.isGroup) {
@@ -217,42 +218,6 @@ client.on('message', async msg => {
         })
     }
 
-});
-
-client.on('group_leave', async (notification) => {
-    const contact = await client.getContactById(notification.id.participant);
-    const chat = await notification.getChat();
-    mentions = [];
-    mentions.push(contact);
-    if (notification.type === 'leave' && chat.isGroup) {
-        chat.sendMessage(`Member @${contact.id.user} telah keluar dari grup.`, { mentions });
-    } else if (notification.type === 'remove' && chat.isGroup) {
-        chat.sendMessage(`Member @${contact.id.user} telah dikick dari grup.`, { mentions });
-    }
-});
-
-client.on('group_join', async (notification) => {
-    const chat = await notification.getChat();
-
-    let contacts = [];
-    let fromMe = false;
-    for (const item of notification.recipientIds) {
-        let contact = await client.getContactById(item);
-        contacts.push(contact);
-        if(contact.id.user == "6288809606244") fromMe = true;
-    }
-
-    if ((notification.type === 'add' || notification.type === 'invite') && (chat.isGroup && fromMe)) {
-        const author = await client.getContactById(notification.author);
-        let mentions = [];
-        mentions.push(author);
-        chat.sendMessage(`🤖 *Halo! Saya adalah SeeU, Asisten Bot Grup ini!*\n\nSaya di invite oleh @${ author.id.user }! Saya di sini untuk membantu dan memiliki sejumlah fitur yang dapat digunakan. Kirim */menu* untuk melihat daftar command yang dapat digunakan. Terima kasih! 🌟`, { mentions });
-    } else if (notification.type === 'add' || notification.type === 'invite' && chat.isGroup) {
-        for (const item of contacts) {
-            let mentions = [item];
-            chat.sendMessage(`hello @${ item.id.user } Selamat bergabung di grup *${ chat.name }*.`, { mentions })
-        }
-    }
 });
 
 client.initialize();
