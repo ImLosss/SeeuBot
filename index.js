@@ -356,11 +356,6 @@ client.on('message', async msg => {
                     }
                 }
             }
-        } else if(!chat.isGroup && msg.body != '' && !msg.hasQuotedMsg) {
-            msg.reply(wrong_format)
-            .catch(() => {
-                chat.sendMessage(wrong_format);
-            })
         }
         
         //kick member
