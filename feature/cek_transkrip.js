@@ -24,10 +24,13 @@ const cekTranskrip = async (msg, client, sender) => {
         const page = await browser.newPage();
 
         // Mencegah dialog cetak
-        page.on('dialog', async dialog => {
+        const dialogHandler = async (dialog) => {
             console.log(`Dialog message: ${dialog.message()}`);
             await dialog.dismiss();
-        });
+        };
+
+        // Mencegah dialog cetak
+        page.on('dialog', dialogHandler);
 
         // Set header User-Agent
         await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36');
@@ -49,10 +52,14 @@ const cekTranskrip = async (msg, client, sender) => {
             fs.unlinkSync('./database/transkrip.png');
         })
 
+        // Hapus listener dialog setelah tidak diperlukan lagi
+        page.off('dialog', dialogHandler);
+
         return await browser.close();
     } catch (err) {
         console.log(err)
         msg.reply('Tidak menemukan data atau siaka sedang down').catch(() => { chat.sendMessage('Terjadi kesalahan atau siaka sedang down') });
+        page.off('dialog', dialogHandler);
         return await browser.close();
     }
 }
