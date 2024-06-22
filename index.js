@@ -34,6 +34,7 @@ const { mediafire } = require('./feature/mediafire');
 const { edenHandler } = require('./feature/edenAI.js');
 const { todocx } = require('./feature/pdfToDocx.js');
 const fungsi = require('./feature/function.js');
+const { cekTranskrip } = require('./feature/cek_transkrip.js');
 
 const wrong_format = `Maaf, pesan Anda tidak dapat dipahami. Berikut adalah menu command yang dapat Anda gunakan:
 
@@ -371,7 +372,8 @@ client.on('message', async msg => {
         else if(prefix.some(pre => text == `${pre}update`)) await newupdate(msg);
         else if(prefix.some(pre => text.startsWith(`${pre}setname`))) await setName(sender, msg);
         else if(prefix.some(pre => text.startsWith(`${pre}setlang`))) await setLang(sender, msg);
-        else if(prefix.some(pre => text.startsWith(`${pre}ai`))) await ai(msg, sender, client);
+        else if(prefix.some(pre => text.startsWith(`${pre}cektranskrip`))) await cekTranskrip(msg, sender, client);
+        else if(prefix.some(pre => text.startsWith(`${pre}ai`))) await ai(msg, client, sender);
         else if(prefix.some(pre => text.startsWith(`${pre}musicinfo`))) await musicinfo(msg, sender);
         else if(prefix.some(pre => text == `${pre}animedl`)) await animedl(msg, client, sender);
         else if (prefix.some(pre => text === `${pre}backup`) && sender == "6282192598451@c.us") await backup_database('database', 'database.zip', msg);
