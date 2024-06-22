@@ -198,7 +198,6 @@ client.on('message', async msg => {
         } 
         else if(prefix.some(pre => text == `${pre}animedl`)) await animedl(msg, client, sender);
         else if (prefix.some(pre => text === (`${pre}topanime`))) await topanime(msg, sender);
-        else if(prefix.some(pre => text.startsWith(`${pre}cektranskrip`))) await cekTranskrip(msg, sender, client);
         
         //kick member
         // else if (text.startsWith("/kickme") && chat.isGroup) {
