@@ -10,7 +10,11 @@ const cekTranskrip = async (msg, client, sender) => {
         url = url.split(' ');
         if(url.length <= 1) return msg.reply('Format anda salah, kirim kembali dengan format /cektranskrip [stb/nim]').catch(() => { chat.sendMessage('Format anda salah, kirim kembali dengan format /cektranskrip [stb/nim]') });
         url = url[1];
-        browser = await puppeteer.launch();
+        browser = await puppeteer.launch({
+            headless: true,
+            args: ['--no-sandbox'],
+            executablePath: '/usr/bin/chromium-browser'
+         });
 
         // Membuat URL baru dengan parameter pencarian
         const newUrl = `https://siaka.undipa.ac.id/print.transkrip.php?stb=${encodeURIComponent(url)}`;
