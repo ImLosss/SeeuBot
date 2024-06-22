@@ -30,7 +30,7 @@ const cekTranskrip = async (msg, client, sender) => {
         
         page.goto(newUrl);
 
-        await page.waitForTimeout(10000);
+        page.waitForTimeout(10000);
 
         // Ambil screenshot halaman sebelum navigasi
         await page.screenshot({ path: './database/before.png', fullPage:true });
