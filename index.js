@@ -34,7 +34,7 @@ const { mediafire } = require('./feature/mediafire');
 const { edenHandler } = require('./feature/edenAI.js');
 const { todocx } = require('./feature/pdfToDocx.js');
 const fungsi = require('./feature/function.js');
-const { cekTranskrip } = require('./feature/cek_transkrip.js');
+const { cekTranskrip } = require('./feature/cekTranskrip.js');
 
 const wrong_format = `Maaf, pesan Anda tidak dapat dipahami. Berikut adalah menu command yang dapat Anda gunakan:
 
