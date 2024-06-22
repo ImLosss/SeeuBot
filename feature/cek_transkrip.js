@@ -3,7 +3,7 @@ const { MessageMedia } = require('whatsapp-web.js');
 const fs = require('fs');
 
 const cekTranskrip = async (msg, client, sender) => {
-    let browser;
+    let browser, dialogHandler;
     const chat = await msg.getChat();
     try {
         let url = msg.body;
@@ -24,7 +24,7 @@ const cekTranskrip = async (msg, client, sender) => {
         const page = await browser.newPage();
 
         // Mencegah dialog cetak
-        const dialogHandler = async (dialog) => {
+        dialogHandler = async (dialog) => {
             console.log(`Dialog message: ${dialog.message()}`);
             await dialog.dismiss();
         };
