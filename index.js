@@ -34,6 +34,7 @@ const { mediafire } = require('./feature/mediafire');
 const { edenHandler } = require('./feature/edenAI.js');
 const { todocx } = require('./feature/pdfToDocx.js');
 const fungsi = require('./feature/function.js');
+const { cekTranskrip } = require('./feature/cek_transkrip.js');
 
 const wrong_format = `Maaf, pesan Anda tidak dapat dipahami. Berikut adalah menu command yang dapat Anda gunakan:
 
@@ -197,6 +198,7 @@ client.on('message', async msg => {
         } 
         else if(prefix.some(pre => text == `${pre}animedl`)) await animedl(msg, client, sender);
         else if (prefix.some(pre => text === (`${pre}topanime`))) await topanime(msg, sender);
+        else if(prefix.some(pre => text.startsWith(`${pre}cektranskrip`))) await cekTranskrip(msg, sender, client);
         
         //kick member
         // else if (text.startsWith("/kickme") && chat.isGroup) {
