@@ -23,7 +23,8 @@ const igdl = async (msg, url, sender, client) => {
 
         browser = await puppeteer.launch({
             headless: true,
-            args: ['--no-sandbox']
+            args: ['--no-sandbox'],
+            executablePath: '/usr/bin/chromium-browser'
          });
         const page = await browser.newPage();
 

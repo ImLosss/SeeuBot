@@ -12,7 +12,8 @@ const cekTranskrip = async (msg, client, sender) => {
         url = url[1];
         browser = await puppeteer.launch({
             headless: true,
-            args: ['--no-sandbox']
+            args: ['--no-sandbox'],
+            executablePath: '/usr/bin/chromium-browser'
         });
 
         // Membuat URL baru dengan parameter pencarian
@@ -42,7 +43,7 @@ const cekTranskrip = async (msg, client, sender) => {
         })
     } catch (err) {
         console.log(err)
-        msg.reply('Terjadi kesalahan atau siaka sedang down').catch(() => { chat.sendMessage('Terjadi kesalahan atau siaka sedang down') })
+        msg.reply('Tidak menemukan data atau siaka sedang down').catch(() => { chat.sendMessage('Terjadi kesalahan atau siaka sedang down') })
     }
 }
 
