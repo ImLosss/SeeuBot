@@ -10,11 +10,7 @@ const cekTranskrip = async (msg, client, sender) => {
         url = url.split(' ');
         if(url.length <= 1) return msg.reply('Format anda salah, kirim kembali dengan format /cektranskrip [stb/nim]').catch(() => { chat.sendMessage('Format anda salah, kirim kembali dengan format /cektranskrip [stb/nim]') });
         url = url[1];
-        browser = await puppeteer.launch({
-            headless: true,
-            args: ['--no-sandbox'],
-            executablePath: '/usr/bin/chromium-browser'
-        });
+        browser = await puppeteer.launch();
 
         // Membuat URL baru dengan parameter pencarian
         const newUrl = `https://siaka.undipa.ac.id/print.transkrip.php?stb=${encodeURIComponent(url)}`;
@@ -23,17 +19,19 @@ const cekTranskrip = async (msg, client, sender) => {
 
         const page = await browser.newPage();
 
+        // Mencegah dialog cetak
+        page.on('dialog', async dialog => {
+            console.log(`Dialog message: ${dialog.message()}`);
+            await dialog.dismiss();
+        });
+
         // Set header User-Agent
         await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36');
 
-        page.setDefaultTimeout(30000);
+        await page.setDefaultTimeout(15000);
+
         
-        page.goto(newUrl);
-
-        page.waitForTimeout(10000);
-
-        // Ambil screenshot halaman sebelum navigasi
-        await page.screenshot({ path: './database/before.png', fullPage:true });
+        await page.goto(newUrl);
 
         await page.waitForSelector('body > div > table:nth-child(3) > tbody > tr:nth-child(2) > td > table.table-common > tbody > tr:nth-child(3)')
 
@@ -46,9 +44,12 @@ const cekTranskrip = async (msg, client, sender) => {
         .then(() => {
             fs.unlinkSync('./database/transkrip.png');
         })
+
+        return await browser.close();
     } catch (err) {
         console.log(err)
-        msg.reply('Tidak menemukan data atau siaka sedang down').catch(() => { chat.sendMessage('Terjadi kesalahan atau siaka sedang down') })
+        msg.reply('Tidak menemukan data atau siaka sedang down').catch(() => { chat.sendMessage('Terjadi kesalahan atau siaka sedang down') });
+        return await browser.close();
     }
 }
 
