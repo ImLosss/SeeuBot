@@ -38,7 +38,7 @@ const cekTranskrip = async (msg, client, sender) => {
         await page.waitForSelector('body > div > table:nth-child(3) > tbody > tr:nth-child(2) > td > table.table-common > tbody > tr:nth-child(3)')
 
         // Ambil screenshot halaman sebelum navigasi
-        await page.screenshot({ path: './database/transkrip.png', fullPage:true });
+        page.screenshot({ path: './database/transkrip.png', fullPage:true });
 
         const media = MessageMedia.fromFilePath('./database/transkrip.png')
 
