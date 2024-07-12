@@ -157,7 +157,8 @@ client.on('message', async msg => {
         if (prefix.some(pre => text.startsWith(`${pre}ask`)) || prefix.some(pre => text.startsWith(`${pre}seeu`))) {
             cmd[0] = cmd[0].toLowerCase();
             if(prefix.some(pre => cmd[0] === `${pre}seeu`) && cmd[1] != null || prefix.some(pre => cmd[0] === `${pre}ask`) && cmd[1] != null) {
-                await ChatAIHandler(text, msg, sender);
+                // await ChatAIHandler(text, msg, sender);
+                await edenHandler(text, msg, sender);
             } else if (cmd[1] == null && prefix.some(pre => cmd[0] === `${pre}seeu`) || cmd[1] == null && prefix.some(pre => cmd[0] === `${pre}ask`)) {
                 msg.reply('tchh, pertanyaannya mana???');
             } else {

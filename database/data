@@ -38,7 +38,7 @@
       "permission": "member",
       "desc": "Generate text to Image",
       "example": "/ai kucing",
-      "status": true
+      "status": false
     },
     {
       "name": "/animesearch [title]",
@@ -59,21 +59,21 @@
       "permission": "member",
       "desc": "Menampilkan topAnimeOfTheWeek dengan sumber dari Bstation",
       "example": "/topanime",
-      "status": true
+      "status": false
     },
     {
       "name": "/topup ML",
       "permission": "member",
       "desc": "Fitur untuk melakukan topup pada Mobile Legend, cukup kirim pesan /topup ml untuk menggunakannya",
       "example": "/topup ml",
-      "status": true
+      "status": false
     },
     {
       "name": "/topup Genshin",
       "permission": "member",
       "desc": "Fitur untuk melakukan topup pada Genshin, cukup kirim pesan /topup genshin untuk menggunakannya",
       "example": "/topup genshin",
-      "status": true
+      "status": false
     },
     {
       "name": "/topdf",
@@ -87,7 +87,7 @@
       "permission": "member",
       "desc": "mengubah audio menjadi teks. pesan dikirim bersama file audio yang ingin diubah menjadi teks dengan caption /audToText, atau bisa juga dengan me reply pesan yang memiliki file audio dengan caption /audToText. argumen fitur ini bersifat opsional apabila dikosongkan maka akan mengirimkan teks sesuai dengan bahasa yang digunakan pada audio. argumen yang di isi merupakan kode ISO 639-1 semua kode bahasa bisa dilihat di link https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes",
       "example": "/audtotext id",
-      "status": true
+      "status": false
     },
     {
       "name": "/musicinfo [title]",
@@ -152,7 +152,7 @@
       "permission": "member",
       "desc": "Fitur untuk mendownload anime terbaru yang rilis tahun 2023 - sekarang. SeeU akan meminta user untuk mengirim nama anime dan episode setelah mengirim command /animedl, Setelah itu SeeU akan mengirimkan link tautan unduhan berdasarkan anime dan episode yang dicari",
       "example": "/animedl",
-      "status": true
+      "status": false
     }
   ],
   "Command Group": [
