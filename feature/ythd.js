@@ -1,4 +1,4 @@
-const yt = require('ytdl-core');
+const yt = require('@distube/ytdl-core');
 const axios = require('axios');
 const fs = require('fs');
 const ffmpeg = require('fluent-ffmpeg');
