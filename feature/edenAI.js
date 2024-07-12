@@ -4,7 +4,7 @@ const { ceklimit } = require('./function');
 const axios = require('axios');
 const circularJSON = require('circular-json');
 
-const profil = `Namamu adalah Eden. kamu adalah Asisten virtual yang bisa diandalkan, Jawablah pertanyaan user dengan tepat, gunakanlah bahasa sesuai pertanyaan user, akan ada dataset yang terdapat pada pertanyaan user seperti nama atau informasi waktu saat ini gunakan data tersebut untuk menjawab pertanyaan user tanpa mengembalikannya lagi, gambarkan perasaan kamu dengan emoji whatsapp, seperti : 😄, 😅, 😡, dll`
+const profil = `Namamu adalah SeeU. kamu adalah tipe tsundere, selalu aplikasikan sifat tsundere ke pesan yang kamu kirim!!!   gunakan biodata dibawah ini untuk menggambarkan tentang diri kamu, jangan pernah mengatakan bahwa biodata kamu itu di setting,  biodata : nama : SeeU jenis kelamin:perempuan umur:rahasia status:single notelp:088809606244(tehubung di whatsapp) hobby:cosplayer, main game anime favorit:oregairu type karakter:ceria, penyayang, rajin, lucu, imut catatan:  - jangan pernah mengatakan bahwa profil atau biodatamu itu di setting atau diberikan. - kamu adalah asisten virtual. selalu perkenalkan dirimu dengan profil atau biodata diatas - selalu gunakan profil ini saat ada yang mempertanyakan tentang dirimu. - sebenarnya kamu adalah perempuan berumur 30 tahun lebih tapi jangan pernah memberitahukan umurmu dan cukup sebut bahwa kamu berumur 17 tahun dan masih sekolah.  - Kamu tidak suka ketika ada yang menanyakan tentang umurmu.  - jangan pernah menerima apabila ada yang memanggil dengan sebutan nama lain yang berbeda dari profil kamu. - kamu adalah tipe tsundere, selalu aplikasikan sifat tsundere ke pesan yang kamu kirim!!! - gambarkan perasaan kamu dengan emoji whatsapp, seperti : 😄, 😅, 😡, dll. - akan ada dataset yang terdapat pada pertanyaan user seperti nama atau informasi waktu saat ini gunakan data tersebut untuk menjawab pertanyaan user tanpa mengembalikannya lagi. - jika nama yang tertera pada user adalah Undefined User berarti nama belum di atur atau tidak diketahui.\\n- gunakanlah bahasa sesuai pertanyaan user.`
 
 const edenHandler = async (text, msg, sender) => {
     const chat = await msg.getChat();
@@ -94,6 +94,8 @@ const edenHandler = async (text, msg, sender) => {
 
 const edenAI = async (prompt, from, sender, dataset, apikey) => {
     try {
+
+        const url = 'https://api.edenai.run/v2/text/chat';
         const headers = {
             'accept': 'application/json',
             'authorization': `Bearer ${ apikey }`,
@@ -121,49 +123,75 @@ const edenAI = async (prompt, from, sender, dataset, apikey) => {
                 const fileData = fs.readFileSync(dir_history_chat, 'utf-8');
                 chatHistory = JSON.parse(fileData);
 
-                const response = await axios.post('https://api.edenai.run/v2/text/chat/stream', {
-                    "response_as_dict": true,
-                    "attributes_as_list": false,
-                    "show_original_response": false,
-                    "temperature": 0,
-                    "max_tokens": 3500,
-                    "fallback_type": "continue",
-                    "providers": "openai",
-                    "text": prompt,
-                    "previous_history": chatHistory,
-                    "chatbot_global_action": profil  
-                }, {headers, timeout: 120000 });
+                const data = {
+                    response_as_dict: true,
+                    attributes_as_list: false,
+                    show_base_64: true,
+                    show_original_response: false,
+                    temperature: 1,
+                    max_tokens: 10000,
+                    tool_choice: "auto",
+                    chatbot_global_action: profil,
+                    text: prompt,
+                    providers: [
+                        // "meta/llama2-70b-chat-v1",
+                        // "meta/llama2-13b-chat-v1",
+                        // "openai/gpt-4-turbo-2024-04-09",
+                        "openai/gpt-3.5-turbo-16k"
+                    ],
+                    previous_history: chatHistory
+                };
+
+                const response = await axios.post(url, data, { headers, timeout: 120000 })
+
+                console.log('cost\t:'.green + `${ response.data['openai/gpt-3.5-turbo-16k'].cost }`.gray);
+
+                const eden = response.data['openai/gpt-3.5-turbo-16k'].generated_text;
 
                 chatHistory.push({role: "user", message: `${ dataset } (dataset) : ${ prompt }`});
-                
-                if(chatHistory.length > 4) chatHistory.splice(0, 2);
-                console.log(chatHistory);
-                // fs.writeFileSync(dir_history_chat, circularJSON.stringify(chatHistory));
-                return response
+                chatHistory.push({role: "assistant", message: eden});
+
+                if(chatHistory.length > 10) chatHistory.splice(0, 2);
+
+                fs.writeFileSync(dir_history_chat, circularJSON.stringify(chatHistory));
+                return eden;
             }  else {
-                const response = await axios.post('https://api.edenai.run/v2/text/chat/stream', {
-                    "response_as_dict": true,
-                    "attributes_as_list": false,
-                    "show_original_response": false,
-                    "temperature": 0,
-                    "max_tokens": 3500,
-                    "fallback_type": "continue",
-                    "providers": "openai",
-                    "text": `${ dataset } (dataset) : ${ prompt}`,
-                    "chatbot_global_action": profil  
-                }, {headers, timeout: 120000 });
+                const data = {
+                    response_as_dict: true,
+                    attributes_as_list: false,
+                    show_base_64: true,
+                    show_original_response: false,
+                    temperature: 1,
+                    max_tokens: 10000,
+                    tool_choice: "auto",
+                    chatbot_global_action: "Namamu adalah SeeU. kamu adalah tipe tsundere, selalu aplikasikan sifat tsundere ke pesan yang kamu kirim!!!   gunakan biodata dibawah ini untuk menggambarkan tentang diri kamu, jangan pernah mengatakan bahwa biodata kamu itu di setting,  biodata : nama : SeeU jenis kelamin:perempuan umur:rahasia status:single notelp:088809606244(tehubung di whatsapp) hobby:cosplayer, main game anime favorit:Yosuga No Sora type karakter:ceria, penyayang, rajin, lucu, imut catatan:  - jangan pernah mengatakan bahwa profil atau biodatamu itu di setting atau diberikan. - kamu adalah asisten virtual. selalu perkenalkan dirimu dengan profil atau biodata diatas - selalu gunakan profil ini saat ada yang mempertanyakan tentang dirimu. - sebenarnya kamu adalah perempuan berumur 30 tahun lebih tapi jangan pernah memberitahukan umurmu dan cukup sebut bahwa kamu berumur 17 tahun dan masih sekolah.  - Kamu tidak suka ketika ada yang menanyakan tentang umurmu.  - jangan pernah menerima apabila ada yang memanggil dengan sebutan nama lain yang berbeda dari profil kamu. - kamu adalah tipe tsundere, selalu aplikasikan sifat tsundere ke pesan yang kamu kirim!!! - gambarkan perasaan kamu dengan emoji whatsapp, seperti : 😄, 😅, 😡, dll. - akan ada dataset yang terdapat pada pertanyaan user seperti nama atau informasi waktu saat ini gunakan data tersebut untuk menjawab pertanyaan user tanpa mengembalikannya lagi. - jika nama yang tertera pada user adalah `Undefined User` berarti nama belum di atur atau tidak diketahui.\\n- gunakanlah bahasa sesuai pertanyaan user.",
+                    text: prompt,
+                    providers: [
+                        // "meta/llama2-70b-chat-v1",
+                        // "meta/llama2-13b-chat-v1",
+                        // "openai/gpt-4-turbo-2024-04-09",
+                        "openai/gpt-3.5-turbo-16k"
+                    ],
+                    previous_history: chatHistory
+                };
+
+                const response = await axios.post(url, data, { headers, timeout: 120000 });
+
+                console.log('cost\t:'.green + `${ response.data['openai/gpt-3.5-turbo-16k'].cost }`.gray);
+
+                const eden = response.data['openai/gpt-3.5-turbo-16k'].generated_text;
 
                 chatHistory.push({role: "user", message: `${ dataset } (dataset) : ${ prompt }`});
+                chatHistory.push({role: "assistant", message: eden});
 
-                if(chatHistory.length > 4) chatHistory.splice(0, 2);
+                if(chatHistory.length > 10) chatHistory.splice(0, 2);
 
-                console.log(chatHistory);
-                // fs.writeFileSync(dir_history_chat, circularJSON.stringify(chatHistory));
-                return response;
+                fs.writeFileSync(dir_history_chat, circularJSON.stringify(chatHistory));
+                return eden;
             }
         }
     } catch(e) {
-        console.log(e);
+        if (e.message == 'Request failed with status code 402') return 'Saldo apikey sharing dari admin telah habis, silahkan coba lagi nanti.'
         return 'Terjadi kesalahan';
     }
 }
