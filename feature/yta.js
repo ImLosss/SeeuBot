@@ -114,7 +114,11 @@ const yta = async function (msg, sender, client) {
             video.pipe(fs.createWriteStream(path));
             video.on('error', (err) => {
                 console.log('Error:',err);
-                fs.unlinkSync(path2);
+                fs.unlinkSync(path2, (err) => {
+                    if(err){
+                        consolelog('gagal hapus data');
+                    }
+                })
                 status = false;
                 cmdname = 'yta';
                 return msg.reply(`Error, coba kembali`)
