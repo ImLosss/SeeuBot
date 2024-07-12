@@ -116,7 +116,7 @@ const yta = async function (msg, sender, client) {
                 console.log('Error:',err);
                 fs.unlinkSync(path2, (err) => {
                     if(err){
-                        consolelog('gagal hapus data');
+                        console.log('gagal hapus data');
                     }
                 })
                 status = false;
