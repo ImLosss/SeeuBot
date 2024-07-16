@@ -24,7 +24,8 @@ const pinterest = async (msg, sender) => {
   try {
         browser = await puppeteer.launch({
             headless: true,
-            args: ['--no-sandbox']
+            args: ['--no-sandbox'],
+            executablePath: '/usr/bin/chromium-browser'
          });
         const page = await browser.newPage();
 
