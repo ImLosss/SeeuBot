@@ -11,6 +11,7 @@ const edenHandler = async (text, msg, sender) => {
     const dir_data_user = `./database/data_user/${ sender }`;
 
     let apikey = await getApiEden();
+    console.log(apikey);
     if(!apikey) return chat.sendMessage('Saldo apikey sharing admin telah habis, coba kembali');
     let data_user = fs.readFileSync(dir_data_user, 'utf-8');
     data_user = JSON.parse(data_user);
