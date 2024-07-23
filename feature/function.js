@@ -4,6 +4,7 @@ const archiver = require('archiver');
 const path = require('path');
 const { MessageMedia } = require('whatsapp-web.js')
 const { EDEN_APIKEY } = require('../config');
+const axios = require('axios');
 
 let status_bugreport = false;
 
@@ -322,10 +323,9 @@ async function getApiEden() {
 
         try {
             const response = await axios.post(url, data, { headers, timeout: 120000 });
-            console.log(response.data);
             return apikey; // Return true if a valid API key is found
         } catch (error) {
-            
+
         }
 
         // Optional: Add a delay between requests to avoid rate limiting
