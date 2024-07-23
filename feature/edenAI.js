@@ -1,6 +1,5 @@
-const { EDEN_APIKEY } = require('../config');
 const fs = require('fs');
-const { ceklimit } = require('./function');
+const { ceklimit, getApiEden } = require('./function');
 const axios = require('axios');
 const circularJSON = require('circular-json');
 
@@ -11,7 +10,8 @@ const edenHandler = async (text, msg, sender) => {
 
     const dir_data_user = `./database/data_user/${ sender }`;
 
-    let apikey = EDEN_APIKEY;
+    let apikey = await getApiEden();
+    if(!apikey) return chat.sendMessage('Saldo apikey sharing admin telah habis, coba kembali');
     let data_user = fs.readFileSync(dir_data_user, 'utf-8');
     data_user = JSON.parse(data_user);
 

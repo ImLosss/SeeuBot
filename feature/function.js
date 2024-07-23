@@ -3,6 +3,7 @@ const { getTime } = require('./function_chatGPT');
 const archiver = require('archiver');
 const path = require('path');
 const { MessageMedia } = require('whatsapp-web.js')
+const { EDEN_APIKEY } = require('../config');
 
 let status_bugreport = false;
 
@@ -296,6 +297,44 @@ function updatecmd(msg) {
     return msg.reply('berhasil mengupdate command');
 }
 
+async function getApiEden() {
+    for (const apikey of EDEN_APIKEY) {
+        const url = 'https://api.edenai.run/v2/text/chat';
+        const headers = {
+            'accept': 'application/json',
+            'authorization': `Bearer ${apikey}`,
+            'content-type': 'application/json'
+        };
+
+        const data = {
+            response_as_dict: true,
+            attributes_as_list: false,
+            show_base_64: true,
+            show_original_response: false,
+            temperature: 0,
+            max_tokens: 1000,
+            tool_choice: "auto",
+            providers: [
+                "openai/gpt-3.5-turbo-0125",
+            ],
+            text: "halo"
+        };
+
+        try {
+            const response = await axios.post(url, data, { headers, timeout: 120000 });
+            console.log(response.data);
+            return apikey; // Return true if a valid API key is found
+        } catch (error) {
+            
+        }
+
+        // Optional: Add a delay between requests to avoid rate limiting
+        await new Promise(resolve => setTimeout(resolve, 500)); // Delay for 1 second
+    }
+
+    return false; // Return false if no valid API key is found
+}
+
 module.exports = {
-    bugreport, ceklimit, limit, newupdate, setName, setLang, resetLimit, backup_database, sendupdate, ceklist_user, updateAPI, delAPI, getMenu, updatecmd
+    bugreport, ceklimit, limit, newupdate, setName, setLang, resetLimit, backup_database, sendupdate, ceklist_user, updateAPI, delAPI, getMenu, updatecmd, getApiEden
 }
