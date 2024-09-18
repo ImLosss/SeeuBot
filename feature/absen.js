@@ -58,6 +58,12 @@ async function absen(data, dataGrup, absen_dir, chat) {
         let indexGrup = dataGrup.findIndex(item => item.group_id == data.group_id);
         if (indexGrup !== -1) return 'terdapat absen yang masih aktif, kirim */close* untuk menutup absen'
 
+        let groupName = chat.name;
+        if(data.cmd.length > 2) {
+            groupName = data.cmd;
+            groupName = groupName.slice(2,groupName.length);
+            groupName = groupName.join(" ");
+        }
         // mengambil batas waktu absen dari chat
         let timeout = data.cmd[1];
         if(!isNaN(timeout) && timeout > 720) return 'Batas waktu absen tidak boleh lebih dari 12 jam...';
@@ -65,7 +71,7 @@ async function absen(data, dataGrup, absen_dir, chat) {
         else timeout = 'None';
 
         // menambah data kedalam array dataGroup
-        let group = { group_name: chat.name, group_id: data.group_id, absen_start: getDate(), timeout: timeout,  }
+        let group = { group_name: groupName, group_id: data.group_id, absen_start: getDate(), timeout: timeout,  }
         dataGrup.push(group);
 
         // menyimpan data absen ke database
