@@ -218,7 +218,7 @@ client.on('message', async msg => {
             }
         
             await chat.sendMessage(text, { mentions });          
-        } else if(prefix.some(pre => text.startsWith(`${ pre }absen`) || text.startsWith(`${ pre }hadir`) || text.startsWith(`${ pre }hadirc`)  || text == `${ pre }close`) && chat.isGroup) await absensiHandler(msg, sender, isAdmin)
+        } else if(prefix.some(pre => text.startsWith(`${ pre }absen`) || text.startsWith(`${ pre }hadir`) || text.startsWith(`${ pre }hadirc`)  || text == `${ pre }close`) && chat.isGroup) await absensiHandler(msg, sender, isAdmin, client)
         else if(prefix.some(pre => text.startsWith(`${pre}animesearch`))){
             if(chat.isGroup){
                 sender = msg.author;

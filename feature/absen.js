@@ -2,7 +2,7 @@ const fs = require('fs')
 
 const file_grup_dir = `database/data_absen/data_grup`;
 
-async function absensiHandler(msg, sender, isAdmin) {
+async function absensiHandler(msg, sender, isAdmin, client) {
     // menggunakan try - catch untuk mencegah program dari crash
     try {
         const prefix = ['!', '/', '.'];
@@ -25,7 +25,7 @@ async function absensiHandler(msg, sender, isAdmin) {
         // menambah logika if - else yang akan menangani pemanggilan fungsi
         if (prefix.some(pre => cmd[0].startsWith(`${ pre }absen`))) {
             if(!isAdmin) return msg.reply('Command khusus Admin');
-            absen(data, dataGrup, file_absen_dir, chat)
+            absen(data, dataGrup, file_absen_dir, chat, client)
             .then((result) => {
                 msg.reply(result).catch(() => { chat.sendMessage(result) });
             });
@@ -52,7 +52,7 @@ async function absensiHandler(msg, sender, isAdmin) {
     }
 }
 
-async function absen(data, dataGrup, absen_dir, chat) {
+async function absen(data, dataGrup, absen_dir, chat, client) {
     try {
         // cek apabila terdapat absen yg aktif maka akan mengembalikan pesan dibawah
         let indexGrup = dataGrup.findIndex(item => item.group_id == data.group_id);
@@ -100,6 +100,7 @@ async function absen(data, dataGrup, absen_dir, chat) {
                 fs.writeFileSync(file_grup_dir, JSON.stringify(dataGrup));
             }, 60000);
         }
+        await tagAll(client, chat);
         let reply = `*Absensi ${ group.group_name } ${ group.absen_start.date } :*\n1. \n2. \n3. \n\nUntuk memulai absen kirim pesan */hadir [nama]*\nAbsen ini dapat ditutup dengan */close*\nEdit : */hadirc [nama]*\nSisa waktu : *${ time_konversi(group.timeout) }*`            
         return reply;
     } catch (e) {
@@ -228,6 +229,20 @@ function time_konversi(time) {
     if(jam > 0 && menit > 0) time_konversi = `${ jam } jam ${ menit } menit`; 
 
     return time_konversi
+}
+
+async function tagAll(client, chat) {
+    let text = "";
+    let mentions = [];
+
+    for (let participant of chat.participants) {
+        const contact = await client.getContactById(participant.id._serialized);
+
+        mentions.push(contact);
+        text += `@${participant.id.user} `;
+    }
+
+    await chat.sendMessage(text, { mentions }); 
 }
 
 module.exports = {
