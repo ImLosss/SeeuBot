@@ -122,9 +122,6 @@ async function closeAbsen(data, dataGrup, absen_dir) {
     let indexGrup = dataGrup.findIndex(item => item.group_id == data.group_id);
     if (indexGrup === -1) return 'Belum memulai absen, kirim */absen [time]* untuk memulai absensi';
 
-    // menghapus data absensi dalam database
-    dataGrup.splice(indexGrup, 1);
-    fs.writeFileSync(file_grup_dir, JSON.stringify(dataGrup));
     try {
         fs.unlinkSync(absen_dir)
     } catch(e) {
@@ -136,6 +133,10 @@ async function closeAbsen(data, dataGrup, absen_dir) {
     for(let item of dataAbsen) {
         reply += `${ no += 1 }. ${ item.name }\n`
     }
+
+    // menghapus data absensi dalam database
+    dataGrup.splice(indexGrup, 1);
+    fs.writeFileSync(file_grup_dir, JSON.stringify(dataGrup));
 
     return reply;
 }
