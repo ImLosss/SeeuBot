@@ -40,8 +40,7 @@ async function absensiHandler(msg, sender, isAdmin, client) {
                     mentions.push(author);
 
                     result += `\n*Absen closed by @${ author.id.user }*`
-                    await msg.reply(result, { mentions }).catch(() => { chat.sendMessage(result, { mentions }) });
-                    chat.sendMessage('Absen Ditutup')
+                    chat.sendMessage(result, { mentions }).then(() => { chat.sendMessage('Absen Ditutup') });
                 }
             });
         } else if (prefix.some(pre => cmd[0].startsWith(`${ pre }hadirc`))) {
