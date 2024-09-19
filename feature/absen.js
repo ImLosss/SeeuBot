@@ -20,7 +20,7 @@ async function absensiHandler(msg, sender, isAdmin, client) {
         dataGrup = JSON.parse(dataGrup);
 
         // membuat variabel yang akan menampung data dari grup
-        let data = { group_id: msg.from, sender: sender, cmd: cmd };
+        let data = { group_id: msg.from, sender: sender, cmd: cmd, msg: msg };
 
         // menambah logika if - else yang akan menangani pemanggilan fungsi
         if (prefix.some(pre => cmd[0].startsWith(`${ pre }absen`))) {
@@ -32,8 +32,16 @@ async function absensiHandler(msg, sender, isAdmin, client) {
         } else if (prefix.some(pre => cmd[0] == `${ pre }close`)) {
             if(!isAdmin) return msg.reply('Command khusus Admin');
             closeAbsen(data, dataGrup, file_absen_dir)
-            .then((result) => {
-                msg.reply(result).catch(() => { chat.sendMessage(result) });
+            .then(async (result) => {
+                if(result.includes("Belum memulai absen")) msg.reply(result).catch(() => { chat.sendMessage(result) });
+                else {
+                    const author = await client.getContactById(msg.author);
+                    let mentions = [];
+                    mentions.push(author);
+
+                    result += `\n*Absen closed by @${ author.id.user }*`
+                    msg.reply(result).catch(() => { chat.sendMessage(result, { mentions }) });
+                }
             });
         } else if (prefix.some(pre => cmd[0].startsWith(`${ pre }hadirc`))) {
             hadirc(data, dataGrup, file_absen_dir)
@@ -123,7 +131,13 @@ async function closeAbsen(data, dataGrup, absen_dir) {
         console.log('Error: ' + e);
     }
 
-    return 'Absen ditutup'
+    let reply = `*Absensi ${ dataGrup[indexGrup].group_name } ${ dataGrup[indexGrup].absen_start.date }:*\n`;
+    let no = 0;
+    for(let item of dataAbsen) {
+        reply += `${ no += 1 }. ${ item.name }\n`
+    }
+
+    return reply;
 }
 
 async function hadir(data, dataGrup, absen_dir) {
