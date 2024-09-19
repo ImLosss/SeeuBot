@@ -40,7 +40,8 @@ async function absensiHandler(msg, sender, isAdmin, client) {
                     mentions.push(author);
 
                     result += `\n*Absen closed by @${ author.id.user }*`
-                    msg.reply(result).catch(() => { chat.sendMessage(result, { mentions }) });
+                    msg.reply(result, { mentions }).catch(() => { chat.sendMessage(result, { mentions }) })
+                    .then(() => { chat.sendMessage('Absen Closed') });
                 }
             });
         } else if (prefix.some(pre => cmd[0].startsWith(`${ pre }hadirc`))) {
@@ -121,7 +122,7 @@ async function closeAbsen(data, dataGrup, absen_dir) {
     // cek apakah terdapat absen yang masih aktif
     let indexGrup = dataGrup.findIndex(item => item.group_id == data.group_id);
     if (indexGrup === -1) return 'Belum memulai absen, kirim */absen [time]* untuk memulai absensi';
-    
+
     let dataAbsen = fs.readFileSync(absen_dir, 'utf-8');
     dataAbsen = JSON.parse(dataAbsen);
 
