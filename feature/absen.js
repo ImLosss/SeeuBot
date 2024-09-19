@@ -121,6 +121,9 @@ async function closeAbsen(data, dataGrup, absen_dir) {
     // cek apakah terdapat absen yang masih aktif
     let indexGrup = dataGrup.findIndex(item => item.group_id == data.group_id);
     if (indexGrup === -1) return 'Belum memulai absen, kirim */absen [time]* untuk memulai absensi';
+    
+    let dataAbsen = fs.readFileSync(absen_dir, 'utf-8');
+    dataAbsen = JSON.parse(dataAbsen);
 
     try {
         fs.unlinkSync(absen_dir)
