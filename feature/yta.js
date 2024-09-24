@@ -10,6 +10,8 @@ const NodeID3 = require('node-id3');
 const { CLOUD_MERSIVE_API } = require('../config');
 const { ceklimit } = require('./function');
 
+const agent = yt.createAgent(JSON.parse(fs.readFileSync("./database/cookies_ytdl.json")));
+
 var CloudmersiveImageApiClient = require('cloudmersive-image-api-client');
 var defaultClient = CloudmersiveImageApiClient.ApiClient.instance;
 
@@ -77,7 +79,7 @@ const yta = async function (msg, sender, client) {
         const path = `./database/${ cmdname }.mp4a`
         const path2 = `./database/${ cmdname }.mp3`
 
-        const info = await yt.getInfo(myurl);
+        const info = await yt.getInfo(myurl, { agent });
         const title = info.videoDetails.title;
         const channel = info.videoDetails.author.name;
         const duration = info.videoDetails.lengthSeconds;
