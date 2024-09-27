@@ -5,6 +5,8 @@ const path = require('path');
 const { MessageMedia } = require('whatsapp-web.js')
 const { EDEN_APIKEY } = require('../config');
 const axios = require('axios');
+const ytdl = require('@distube/ytdl-core');
+const { getRandomIPv6 } = require("@distube/ytdl-core/lib/utils");
 
 let status_bugreport = false;
 
