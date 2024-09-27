@@ -335,6 +335,28 @@ async function getApiEden() {
     return false; // Return false if no valid API key is found
 }
 
+async function getInfoYt(url) {
+    let repeat = 0;
+    let info = await getInfo();
+    return info;
+    async function getInfo() {
+        if(repeat >= 5) return 'gagal';
+        try {
+            const agentForARandomIP = ytdl.createAgent(undefined, {
+                localAddress: getRandomIPv6("2001:2::/48"),
+            });
+
+            const info = await ytdl.getInfo(url, { agentForARandomIP });
+
+            return info
+        } catch (e) {
+            console.log(`Gagal mengambil agent: ${ e.message }`);
+            repeat+=1;
+            return await getInfo();
+        }
+    }
+}
+
 module.exports = {
-    bugreport, ceklimit, limit, newupdate, setName, setLang, resetLimit, backup_database, sendupdate, ceklist_user, updateAPI, delAPI, getMenu, updatecmd, getApiEden
+    bugreport, ceklimit, limit, newupdate, setName, setLang, resetLimit, backup_database, sendupdate, ceklist_user, updateAPI, delAPI, getMenu, updatecmd, getApiEden, getInfoYt
 }

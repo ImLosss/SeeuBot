@@ -8,9 +8,7 @@ const { spawn } = require('child_process');
 const ffmpegStatic = require('ffmpeg-static');
 const NodeID3 = require('node-id3');
 const { CLOUD_MERSIVE_API } = require('../config');
-const { ceklimit } = require('./function');
-
-const agent = yt.createAgent(JSON.parse(fs.readFileSync("./database/cookies_ytdl.json")));
+const { ceklimit, getInfoYt } = require('./function');
 
 var CloudmersiveImageApiClient = require('cloudmersive-image-api-client');
 var defaultClient = CloudmersiveImageApiClient.ApiClient.instance;
@@ -79,7 +77,8 @@ const yta = async function (msg, sender, client) {
         const path = `./database/${ cmdname }.mp4a`
         const path2 = `./database/${ cmdname }.mp3`
 
-        const info = await yt.getInfo(myurl, { agent });
+        const info = await getInfoYt(myurl);
+        if (info == 'gagal') return chat.sendMessage('Gagal mengambil info video, coba lagi...');
         const title = info.videoDetails.title;
         const channel = info.videoDetails.author.name;
         const duration = info.videoDetails.lengthSeconds;
