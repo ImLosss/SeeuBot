@@ -78,7 +78,10 @@ const yta = async function (msg, sender, client) {
         const path2 = `./database/${ cmdname }.mp3`
 
         const info = await getInfoYt(myurl);
-        if (info == 'gagal') return chat.sendMessage('Gagal mengambil info video, coba lagi...');
+        if (info == 'gagal') {
+            status = false;
+            return chat.sendMessage('Gagal mengambil info video, coba lagi...');
+        }
         const title = info.videoDetails.title;
         const channel = info.videoDetails.author.name;
         const duration = info.videoDetails.lengthSeconds;

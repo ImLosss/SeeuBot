@@ -342,7 +342,7 @@ async function getInfoYt(url) {
     let info = await getInfo();
     return info;
     async function getInfo() {
-        if(repeat >= 5) return 'gagal';
+        if(repeat >= 20) return 'gagal';
         try {
             const agentForARandomIP = ytdl.createAgent(undefined, {
                 localAddress: getRandomIPv6("2001:2::/48"),
