@@ -249,7 +249,7 @@ const yta = async function (msg, sender, client) {
         const path = `./database/${ cmdname }.mp4a`
         const path2 = `./database/${ cmdname }.mp3`
 
-        const info = await getInfoYt(myurl, agent);
+        const info = await yt.getInfo(myurl, { agent });
         if (info == 'gagal') {
             status = false;
             return chat.sendMessage('Gagal mengambil info video, coba lagi...');
