@@ -457,6 +457,10 @@ async function convertMP4AToMP3(inputFile, outputFile) {
       ffmpegProcess.stderr.on('data', (data) => {
         // console.error(`stderr: ${data}`);
       });
+
+      ffmpegProcess.stderr.on('error', (err) => {
+        console.log(err)
+      });
   
       ffmpegProcess.on('close', (code) => {
         if (code === 0) {
