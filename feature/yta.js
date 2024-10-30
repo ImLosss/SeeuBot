@@ -440,6 +440,7 @@ const download = async (url, path) => {
 async function convertMP4AToMP3(inputFile, outputFile) {
     return new Promise((resolve, reject) => {
       const ffmpegArgs = [
+        '-y',
         '-i', inputFile,
         '-c:a', 'libmp3lame',
         '-q:a', '2', // Kualitas audio (0 - 9, 2 adalah kualitas yang baik)
