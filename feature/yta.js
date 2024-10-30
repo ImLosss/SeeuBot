@@ -287,10 +287,10 @@ const yta = async function (msg, sender, client) {
         if(duration <= min) {
             msg.reply('[⏳] Mulai mengunduh...')
             const video = yt(myurl, { quality: 'highestaudio', format: 'mp3', filter: 'audioonly', agent: agent });
-            video.pipe(fs.createWriteStream(path));
+            video.pipe(fs.createWriteStream(path2));
             video.on('error', (err) => {
                 console.log('Error:',err);
-                fs.unlinkSync(path, (err) => {
+                fs.unlinkSync(path2, (err) => {
                     if(err){
                         console.log('gagal hapus data');
                     }
