@@ -246,7 +246,7 @@ const yta = async function (msg, sender, client) {
         console.log(`fitur\t\t:`.green + `/yta`.gray);
         console.log(`Pesan\t\t:`.green + `${ pesan }`.gray);
 
-        const path = `./database/${ cmdname }.mp4a`
+        const path = `./database/${ cmdname }.mp4`
         const path2 = `./database/${ cmdname }.mp3`
 
         const info = await yt.getInfo(myurl, { agent });
