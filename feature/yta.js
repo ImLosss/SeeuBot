@@ -290,7 +290,7 @@ const yta = async function (msg, sender, client) {
             video.pipe(fs.createWriteStream(path));
             video.on('error', (err) => {
                 console.log('Error:',err);
-                fs.unlinkSync(path2, (err) => {
+                fs.unlinkSync(path, (err) => {
                     if(err){
                         console.log('gagal hapus data');
                     }
