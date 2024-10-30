@@ -442,6 +442,7 @@ async function convertMP4AToMP3(inputFile, outputFile) {
       const ffmpegArgs = [
         '-y',
         '-i', inputFile,
+        '-vn',
         '-c:a', 'libmp3lame',
         '-q:a', '2', // Kualitas audio (0 - 9, 2 adalah kualitas yang baik)
         outputFile
