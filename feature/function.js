@@ -337,18 +337,15 @@ async function getApiEden() {
     return false; // Return false if no valid API key is found
 }
 
-async function getInfoYt(url) {
+async function getInfoYt(url, agent) {
     let repeat = 0;
     let info = await getInfo();
     return info;
     async function getInfo() {
         if(repeat >= 20) return 'gagal';
         try {
-            const agentForARandomIP = ytdl.createAgent(undefined, {
-                localAddress: getRandomIPv6("2001:2::/48"),
-            });
 
-            const info = await ytdl.getInfo(url, { agentForARandomIP });
+            const info = await ytdl.getInfo(url, { agent });
 
             return info
         } catch (e) {

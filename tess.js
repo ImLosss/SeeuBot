@@ -1,30 +1,22 @@
-const ytdl = require("@distube/ytdl-core");
-const { getRandomIPv6 } = require("@distube/ytdl-core/lib/utils");
+const qr = require('qrcode');
 const fs = require('fs');
-
-async function getInfoYt(url) {
-    let repeat = 0;
-    let info = await getInfo();
-    return info;
-    async function getInfo() {
-        if(repeat >= 5) return 'gagal';
-        try {
-            const agentForARandomIP = ytdl.createAgent(undefined, {
-                localAddress: getRandomIPv6("2001:2::/48"),
-            });
-
-            const info = await ytdl.getInfo(url, { agentForARandomIP });
-
-            return info
-        } catch (e) {
-            console.log(`Gagal mengambil agent: ${ e.message }`);
-            repeat+=1;
-            return await getInfo();
-        }
+// Generate QR code as a data URI
+qr.toDataURL('https://kelortabur.websiteku.online/', (err, url) => {
+    if (err) {
+        console.error('Failed to generate QR code:', err);
+        return;
     }
-}
 
-getInfoYt('https://www.youtube.com/watch?v=IJVPSyLkmyA&ab_channel=ParadiseLoves')
-.then((result) => {
-    console.log(result);
-})
+    // Save QR code data URI as an image file
+    const qrCodeFilePath = 'qrcode.png';
+    const dataUri = url.split(',')[1];
+    const buffer = Buffer.from(dataUri, 'base64');
+    
+    fs.writeFile(qrCodeFilePath, buffer, (err) => {
+    if (err) {
+        console.error('Failed to save QR code as an image:', err);
+    } else {
+        console.log('QR code successfully saved as', qrCodeFilePath);
+    }
+    });
+});
