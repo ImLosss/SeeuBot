@@ -8,6 +8,180 @@ const { spawn } = require('child_process');
 const ffmpegPath = require('ffmpeg-static');
 const { ceklimit } = require('./function');
 
+const cookies = [
+    {
+        "domain": ".youtube.com",
+        "expirationDate": 1764862481.303845,
+        "hostOnly": false,
+        "httpOnly": true,
+        "name": "__Secure-3PSID",
+        "path": "/",
+        "sameSite": "no_restriction",
+        "secure": true,
+        "session": false,
+        "storeId": null,
+        "value": "g.a000pggqO02EqUxA8XRNfFc03_GyZIAqck57NV1xmKQEbMXRLenzZjmFtZAkmXDZ1RmHrk-AFwACgYKAfsSARASFQHGX2MiRR9FwOgy1toakWy8ccuMJxoVAUF8yKrMOWUaMHpCQFxw_m3b40Em0076"
+    },
+    {
+        "domain": ".youtube.com",
+        "expirationDate": 1730304242.360786,
+        "hostOnly": false,
+        "httpOnly": true,
+        "name": "GPS",
+        "path": "/",
+        "sameSite": null,
+        "secure": true,
+        "session": false,
+        "storeId": null,
+        "value": "1"
+    },
+    {
+        "domain": ".youtube.com",
+        "expirationDate": 1761838481.303345,
+        "hostOnly": false,
+        "httpOnly": true,
+        "name": "__Secure-1PSIDTS",
+        "path": "/",
+        "sameSite": null,
+        "secure": true,
+        "session": false,
+        "storeId": null,
+        "value": "sidts-CjEBQT4rX6LE42mXIgU-8sPoOQxgVYeO4GXfVCqyMJSRTgXAkFrjWIvaazm8tJJWfPuWEAA"
+    },
+    {
+        "domain": ".youtube.com",
+        "expirationDate": 1764862481.303625,
+        "hostOnly": false,
+        "httpOnly": false,
+        "name": "SAPISID",
+        "path": "/",
+        "sameSite": null,
+        "secure": true,
+        "session": false,
+        "storeId": null,
+        "value": "QhQTVH5kD1OMZMVJ/AWCOCUNpxT7jtvu9a"
+    },
+    {
+        "domain": ".youtube.com",
+        "expirationDate": 1761838528.726985,
+        "hostOnly": false,
+        "httpOnly": true,
+        "name": "__Secure-1PSIDCC",
+        "path": "/",
+        "sameSite": null,
+        "secure": true,
+        "session": false,
+        "storeId": null,
+        "value": "AKEyXzVBnOyWEYAoTxKGk-To7IaC68MJs4TA_VHsi0DlvQNP7pzVdW2U8-jgAUaEVLRQ1zPb"
+    },
+    {
+        "domain": ".youtube.com",
+        "expirationDate": 1764862481.303543,
+        "hostOnly": false,
+        "httpOnly": true,
+        "name": "SSID",
+        "path": "/",
+        "sameSite": null,
+        "secure": true,
+        "session": false,
+        "storeId": null,
+        "value": "Ayubft530vPTWC4kV"
+    },
+    {
+        "domain": ".youtube.com",
+        "expirationDate": 1764862481.303664,
+        "hostOnly": false,
+        "httpOnly": false,
+        "name": "__Secure-1PAPISID",
+        "path": "/",
+        "sameSite": null,
+        "secure": true,
+        "session": false,
+        "storeId": null,
+        "value": "QhQTVH5kD1OMZMVJ/AWCOCUNpxT7jtvu9a"
+    },
+    {
+        "domain": ".youtube.com",
+        "expirationDate": 1764862481.303774,
+        "hostOnly": false,
+        "httpOnly": true,
+        "name": "__Secure-1PSID",
+        "path": "/",
+        "sameSite": null,
+        "secure": true,
+        "session": false,
+        "storeId": null,
+        "value": "g.a000pggqO02EqUxA8XRNfFc03_GyZIAqck57NV1xmKQEbMXRLenztL-vMh0i4vIJmRsvtUE54QACgYKAQYSARASFQHGX2Mihl0tT3sW_yD8F6mC2bD1mhoVAUF8yKqCtf7l0YYpRWu6jVcnAq3c0076"
+    },
+    {
+        "domain": ".youtube.com",
+        "expirationDate": 1764862481.303699,
+        "hostOnly": false,
+        "httpOnly": false,
+        "name": "__Secure-3PAPISID",
+        "path": "/",
+        "sameSite": "no_restriction",
+        "secure": true,
+        "session": false,
+        "storeId": null,
+        "value": "QhQTVH5kD1OMZMVJ/AWCOCUNpxT7jtvu9a"
+    },
+    {
+        "domain": ".youtube.com",
+        "expirationDate": 1761838528.727022,
+        "hostOnly": false,
+        "httpOnly": true,
+        "name": "__Secure-3PSIDCC",
+        "path": "/",
+        "sameSite": "no_restriction",
+        "secure": true,
+        "session": false,
+        "storeId": null,
+        "value": "AKEyXzUzRGDcKYsmuVEepHHxXwNWRn92kZNZoe86Fd7Tli-PGJ2rW88AtOhVshLO3zKvk0wm"
+    },
+    {
+        "domain": ".youtube.com",
+        "expirationDate": 1761838481.303476,
+        "hostOnly": false,
+        "httpOnly": true,
+        "name": "__Secure-3PSIDTS",
+        "path": "/",
+        "sameSite": "no_restriction",
+        "secure": true,
+        "session": false,
+        "storeId": null,
+        "value": "sidts-CjEBQT4rX6LE42mXIgU-8sPoOQxgVYeO4GXfVCqyMJSRTgXAkFrjWIvaazm8tJJWfPuWEAA"
+    },
+    {
+        "domain": ".youtube.com",
+        "expirationDate": 1764862481.390831,
+        "hostOnly": false,
+        "httpOnly": true,
+        "name": "LOGIN_INFO",
+        "path": "/",
+        "sameSite": "no_restriction",
+        "secure": true,
+        "session": false,
+        "storeId": null,
+        "value": "AFmmF2swRgIhAMqa4NNamILon9m-t0xPw8W4oQ7DPKUsDgO2K4l09Nv9AiEAvr-jGhzfCr59vlbKHw8FalSgj4edsekeBLOWD2YheT0:QUQ3MjNmeUJxNC1Ba1JTSTZuWUU0TElOSklHZTk5c3phakFSVFRZejJPdURxMEp1dG1wNGFoM2dkMk5GVUdiZlE4MlFZbkdacUFNaGhqMDJfS19vbEM0N3ZKNVl2REFjcnhZTE1MaFRfdVBCOU5LcVN0UW5jSUJURm1pOWR6cFQ2dlI4ZFpqOExlUFZBWWwyRkhkWV92Z3dRamVOTlVReThR"
+    },
+    {
+        "domain": ".youtube.com",
+        "expirationDate": 1764862484.548717,
+        "hostOnly": false,
+        "httpOnly": false,
+        "name": "PREF",
+        "path": "/",
+        "sameSite": null,
+        "secure": true,
+        "session": false,
+        "storeId": null,
+        "value": "tz=UTC"
+    }
+];
+
+const agent = yt.createAgent(cookies);
+
 let status = false;
 
 const regex = /^[a-zA-Z0-9_()\s.-]+$/;
@@ -35,7 +209,7 @@ const ythd = async function (msg, sender, client) {
         }
         if(pesan[1] == null) return msg.reply('Formatmu salah, kirim kembali dengan format */ytv [link] (nama_file)*');
         myurl = pesan[1];
-        if(!yt.validateURL(myurl)){
+        if(!yt.validateURL(myurl, { agent })){
             return msg.reply('url mu salah, coba periksa kembali')
         }
         if(status == true) {
@@ -50,7 +224,7 @@ const ythd = async function (msg, sender, client) {
             })
         }
 
-        const info = await yt.getInfo(myurl);
+        const info = await yt.getInfo(myurl, { agent });
         const title = info.videoDetails.title;
         const duration = info.videoDetails.lengthSeconds;
         console.log(duration);
@@ -72,7 +246,7 @@ const ythd = async function (msg, sender, client) {
         if(duration <= min) {
             status = true;
             msg.reply('[⏳] Mulai mengunduh...')
-            const video = yt(myurl, { quality: 'highestvideo', format: 'mp4'});
+            const video = yt(myurl, { quality: 'highestvideo', format: 'mp4', agent: agent });
             video.pipe(fs.createWriteStream('./database/input_video.mp4'));
             video.on('error', (err) => {
                 console.log('Error:',err.message);
@@ -88,7 +262,7 @@ const ythd = async function (msg, sender, client) {
                 console.log('Video berhasil diunduh.');
                 
                 // Unduh file audio
-                const audio = yt(myurl, { quality: 'highestaudio', format: 'mp3' });
+                const audio = yt(myurl, { quality: 'highestaudio', format: 'mp3', agent: agent });
                 audio.pipe(fs.createWriteStream('./database/input_audio.mp3'));
             
                 audio.on('end', () => {

@@ -286,7 +286,7 @@ const yta = async function (msg, sender, client) {
 
         if(duration <= min) {
             msg.reply('[⏳] Mulai mengunduh...')
-            const video = yt(myurl, { agent: agent, quality: 'highestaudio', format: 'mp3', filter: 'audioonly' });
+            const video = yt(myurl, { quality: 'highestaudio', format: 'mp3', filter: 'audioonly', agent: agent });
             video.pipe(fs.createWriteStream(path));
             video.on('error', (err) => {
                 console.log('Error:',err);
