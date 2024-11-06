@@ -246,7 +246,7 @@ const yta = async function (msg, sender, client) {
         console.log(`fitur\t\t:`.green + `/yta`.gray);
         console.log(`Pesan\t\t:`.green + `${ pesan }`.gray);
 
-        const path = `./database/${ cmdname }.mp4`
+        const path = `./database/${ cmdname }.mp4a`
         const path2 = `./database/${ cmdname }.mp3`
 
         const info = await yt.getInfo(myurl, { agent });
@@ -286,7 +286,7 @@ const yta = async function (msg, sender, client) {
 
         if(duration <= min) {
             msg.reply('[⏳] Mulai mengunduh...')
-            const video = yt(myurl, { quality: '18', format:'mp4', agent: agent });
+            const video = yt(myurl, { quality: 'highestaudio', format:'mp3', agent: agent });
             video.pipe(fs.createWriteStream(path));
             video.on('error', (err) => {
                 console.log('Error:',err);
